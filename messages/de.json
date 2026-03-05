@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Start",
+    "about": "Über mich",
+    "stack": "Technik",
+    "projects": "Projekte",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "name": "Gregor Krykon",
+    "title": "Automation Engineer · Full-Stack Developer",
+    "tagline": "Ich automatisiere das Mühsame, baue das Wesentliche — und liefere Dinge, die laufen.",
+    "cta": {
+      "cv": "Lebenslauf"
+    }
+  },
+  "about": {
+    "heading": "Über mich",
+    "body1": "Ich bin Gregor — ein Entwickler aus Bayern, der mit 15 angefangen hat, Dinge zu bauen, und nie aufgehört hat.",
+    "body2": "Ich habe mit Spieleentwicklung angefangen, mich dann in Web-Shops eingearbeitet und schließlich meinen Weg in die Automatisierung und Full-Stack-Entwicklung gefunden. Heute arbeite ich als Azubi bei Fellowpro im Bereich Software-Entwicklung mit Schwerpunkt CI/CD, Testautomatisierung und DevOps — und betreibe nebenbei eigene Projekte und selbst gehostete Infrastruktur.",
+    "body3": "Mein Ansatz: erst etwas bauen, das funktioniert — dann solide machen. Kein endloses Planen, kein Perfektionismus — nur konsistenter, getesteter, echter Output.",
+    "body4": "Wenn du eine Website, eine App oder ein System brauchst, das dir die manuelle Arbeit abnimmt — lass uns reden.",
+    "photos_label": "Das bin ich"
+  },
+  "stack": {
+    "heading": "Technik",
+    "categories": {
+      "development": "Entwicklung",
+      "infrastructure": "Infrastruktur",
+      "hosting": "Hosting & Tools"
+    }
+  },
+  "projects": {
+    "heading": "Projekte",
+    "krimispiele": {
+      "title": "krimispiele.com",
+      "desc": "Shopware-Einrichtung, Anpassung und laufende Betreuung für Samhain Verlag."
+    },
+    "samhain": {
+      "title": "samhain-verlag.de",
+      "desc": "WordPress-Einrichtung und Content-Management für Samhain Verlag."
+    },
+    "krimidinnerverzeichnis": {
+      "title": "krimidinnerverzeichnis.de",
+      "desc": "Von Grund auf in HTML & JavaScript gebaut — ein Verzeichnis für Krimidinner-Events in Deutschland und Österreich. Entwickelt für Lympselon."
+    }
+  },
+  "contact": {
+    "heading": "Kontakt",
+    "text": "Hast du ein Projekt im Kopf oder möchtest einfach Hallo sagen? Schreib mir — ich freue mich von dir zu hören.",
+    "email_label": "Schreib mir eine E-Mail",
+    "email": "gregor@922-studio.com"
+  },
+  "footer": {
+    "built_with": "Gebaut mit"
+  },
+  "lang": {
+    "en": "EN",
+    "de": "DE"
+  },
+  "theme": {
+    "toggle_dark": "Dunkelmodus umschalten",
+    "toggle_light": "Hellmodus umschalten"
+  }
+}

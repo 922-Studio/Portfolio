@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "stack": "Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "name": "Gregor Krykon",
+    "title": "Automation Engineer · Full-Stack Developer",
+    "tagline": "I automate the tedious, build the essential — and ship things that keep running.",
+    "cta": {
+      "cv": "Download CV"
+    }
+  },
+  "about": {
+    "heading": "About Me",
+    "body1": "I'm Gregor — a developer based in Bavaria who got hooked on building things at 15 and never stopped.",
+    "body2": "I started with game development, moved into web shops, and eventually found my groove in automation and full-stack development. Today I work as an apprentice software developer at Fellowpro, specialising in CI/CD, test automation, and DevOps — while running my own projects and self-hosted infrastructure in my spare time.",
+    "body3": "My approach: ship something that works, then make it solid. No endless planning, no perfectionism paralysis — just consistent, tested, real output.",
+    "body4": "If you need a website, an app, or a system that takes the manual work off your plate — let's talk.",
+    "photos_label": "That's me"
+  },
+  "stack": {
+    "heading": "Tech Stack",
+    "categories": {
+      "development": "Development",
+      "infrastructure": "Infrastructure",
+      "hosting": "Hosting & Tools"
+    }
+  },
+  "projects": {
+    "heading": "Projects",
+    "krimispiele": {
+      "title": "krimispiele.com",
+      "desc": "Shopware setup, customisation, and ongoing management for Samhain Verlag."
+    },
+    "samhain": {
+      "title": "samhain-verlag.de",
+      "desc": "WordPress site setup and content management for Samhain Verlag."
+    },
+    "krimidinnerverzeichnis": {
+      "title": "krimidinnerverzeichnis.de",
+      "desc": "Built from scratch in HTML & JavaScript — a directory for crime dinner events across Germany and Austria. Developed for Lympselon."
+    }
+  },
+  "contact": {
+    "heading": "Contact",
+    "text": "Have a project in mind or just want to say hi? Reach out — I'd love to hear from you.",
+    "email_label": "Send me an email",
+    "email": "gregor@922-studio.com"
+  },
+  "footer": {
+    "built_with": "Built with"
+  },
+  "lang": {
+    "en": "EN",
+    "de": "DE"
+  },
+  "theme": {
+    "toggle_dark": "Toggle dark mode",
+    "toggle_light": "Toggle light mode"
+  }
+}
