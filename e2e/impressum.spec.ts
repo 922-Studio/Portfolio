@@ -21,13 +21,13 @@ test.describe('Impressum Page', () => {
     });
 
     test('displays full address', async ({page}) => {
-      await expect(page.locator('text=Jahnstraße 2')).toBeVisible();
+      await expect(page.locator('text=Bajuwarenstraße 8')).toBeVisible();
       await expect(page.locator('text=85567 Grafing bei München')).toBeVisible();
       await expect(page.locator('text=Deutschland')).toBeVisible();
     });
 
     test('email link is correct', async ({page}) => {
-      const emailLink = page.locator('a[href="mailto:gregor@922-studio.com"]');
+      const emailLink = page.locator('a[href="mailto:gregor.krykon@922-studio.com"]');
       await expect(emailLink).toBeVisible();
     });
 

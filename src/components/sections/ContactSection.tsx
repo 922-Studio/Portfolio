@@ -15,7 +15,7 @@ export function ContactSection() {
         <p className="text-text-secondary">{t('text')}</p>
 
         <a
-          href="mailto:gregor@922-studio.com"
+          href="mailto:gregor.krykon@922-studio.com"
           className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent-from px-6 py-3 font-medium text-white transition hover:opacity-90"
         >
           <Mail size={18} />

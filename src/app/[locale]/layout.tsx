@@ -83,7 +83,7 @@ export default async function LocaleLayout({children, params}: Props) {
       name: 'Gregor Krykon',
       jobTitle: 'Automation Engineer & Full-Stack Developer',
       url: 'https://gregor.922-studio.com',
-      email: 'gregor@922-studio.com',
+      email: 'gregor.krykon@922-studio.com',
       sameAs: [
         'https://github.com/Tannjev922',
         'https://www.linkedin.com/in/gregor-krykon-11007428a/',

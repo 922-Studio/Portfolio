@@ -126,7 +126,7 @@ test.describe('Contact Section', () => {
 
   test('email link has correct mailto href', async ({page}) => {
     const emailLink = page.locator('#contact a[href^="mailto:"]');
-    await expect(emailLink).toHaveAttribute('href', 'mailto:gregor@922-studio.com');
+    await expect(emailLink).toHaveAttribute('href', 'mailto:gregor.krykon@922-studio.com');
   });
 
   test('Discord link points to correct URL', async ({page}) => {
