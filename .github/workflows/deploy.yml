@@ -34,6 +34,8 @@ jobs:
       browsers: 'chromium'
       allure_project_id: 'portfolio'
       allure_server_url: 'http://localhost:5050'
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
   deploy:
