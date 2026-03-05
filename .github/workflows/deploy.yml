@@ -13,331 +13,71 @@ on:
 jobs:
   # ────────────────────────────────────────────────────────────────────────────
   cancel-previous-runs:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const branch = context.ref_name;
-
-            const currentRun = await github.rest.actions.getWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.runId,
-            });
-            const workflowId = currentRun.data.workflow_id;
-
-            core.info(`Cancelling previous runs of workflow ${workflowId} on branch ${branch}`);
-            core.info(`Current run ID: ${context.runId} (will be excluded)`);
-
-            const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: workflowId,
-              branch: branch,
-              per_page: 100,
-            });
-
-            const toCancel = runs.filter(run =>
-              (run.status === 'in_progress' || run.status === 'queued') &&
-              run.id !== context.runId
-            );
-
-            core.info(`Found ${toCancel.length} run(s) to cancel`);
-
-            for (const run of toCancel) {
-              try {
-                await github.rest.actions.cancelWorkflowRun({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  run_id: run.id,
-                });
-                core.info(`Cancelled run ${run.id} (status: ${run.status})`);
-              } catch (err) {
-                core.warning(`Could not cancel run ${run.id}: ${err.message}`);
-              }
-            }
+    uses: 922-Studio/workflows/.github/workflows/cancel-previous-runs.yml@main
 
   # ────────────────────────────────────────────────────────────────────────────
   version:
     name: Create new version
     needs: cancel-previous-runs
-    runs-on: self-hosted
-    outputs:
-      new_version: ${{ steps.version.outputs.new_version }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-          token: ${{ secrets.PAT_GITHUB }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Get commit messages
-        id: commit_messages
-        run: |
-          COMMITS=$(git log -1 --pretty=format:"%s%n%b")
-          DELIM=$(openssl rand -hex 8)
-          echo "commits<<${DELIM}" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "${DELIM}" >> $GITHUB_OUTPUT
-
-      - name: Check for [ci skip]
-        id: ci_skip_check
-        run: |
-          if git log -1 --pretty=%B | grep -q "\[ci skip\]"; then
-            echo "ci_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "ci_skip=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Determine next version
-        if: steps.ci_skip_check.outputs.ci_skip == 'false'
-        id: version
-        run: |
-          NEXT_VERSION=$(python .github/scripts/determine_version.py \
-            --commits "${{ steps.commit_messages.outputs.commits }}" \
-            --version-file version.txt)
-          echo "new_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
-
-      - name: Update version file
-        if: steps.version.outputs.new_version != ''
-        run: echo "${{ steps.version.outputs.new_version }}" > version.txt
-
-      - name: Commit and push version
-        if: steps.version.outputs.new_version != ''
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add version.txt
-          if git diff --cached --quiet; then
-            echo "No changes to version file. Skipping commit."
-          else
-            git commit -m "chore: Update version to ${{ steps.version.outputs.new_version }} [ci skip]"
-            git pull --rebase
-            git push
-          fi
-
-      - name: Create and push tag
-        if: steps.version.outputs.new_version != ''
-        run: |
-          if git rev-parse "v${{ steps.version.outputs.new_version }}" >/dev/null 2>&1; then
-            echo "Tag already exists. Skipping."
-          else
-            git tag "v${{ steps.version.outputs.new_version }}"
-            git push origin "v${{ steps.version.outputs.new_version }}"
-          fi
+    uses: 922-Studio/workflows/.github/workflows/versioning.yml@main
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
   test:
     name: Run E2E tests
     needs: version
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Restore node_modules (local disk cache)
-        id: npm-cache
-        run: |
-          CACHE_BASE="/home/lab/runner-cache/node-modules"
-          mkdir -p "$CACHE_BASE"
-          HASH=$(sha256sum package-lock.json | awk '{print $1}')
-          CACHE_PATH="$CACHE_BASE/$HASH"
-          echo "cache_path=$CACHE_PATH" >> "$GITHUB_ENV"
-          if [ -d "$CACHE_PATH" ]; then
-            echo "Cache hit — restoring node_modules from local disk..."
-            cp -al "$CACHE_PATH" node_modules
-            echo "npm_cache_hit=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "Cache miss — will run install."
-            echo "npm_cache_hit=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.npm_cache_hit != 'true'
-        run: npm ci
-
-      - name: Save node_modules to local disk cache
-        if: steps.npm-cache.outputs.npm_cache_hit != 'true'
-        run: |
-          CACHE_PATH="${{ env.cache_path }}"
-          if [ ! -d "$CACHE_PATH" ]; then
-            echo "Saving node_modules to local disk cache..."
-            TEMP="${CACHE_PATH}.tmp.$$"
-            cp -a node_modules "$TEMP"
-            mv "$TEMP" "$CACHE_PATH" 2>/dev/null || rm -rf "$TEMP"
-            # Keep only 5 most recent cache versions
-            ls -1dt /home/lab/runner-cache/node-modules/*/ 2>/dev/null | tail -n +6 | xargs -r rm -rf
-          fi
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Build application
-        run: npm run build
-
-      - name: Prepare standalone server
-        run: |
-          cp -r public .next/standalone/public
-          cp -r .next/static .next/standalone/.next/static
-
-      - name: Run Playwright tests
-        run: npx playwright test
-        continue-on-error: true
-        id: tests
-
-      - name: Send results to Allure
-        if: always()
-        run: |
-          FILES=$(find allure-results -name '*.json' -o -name '*.xml' -o -name '*.txt' -o -name '*.properties' 2>/dev/null)
-          if [ -n "$FILES" ]; then
-            for f in $FILES; do
-              curl -s -X POST "http://localhost:5050/allure-docker-service/send-results?project_id=portfolio" \
-                -H 'Content-Type: multipart/form-data' \
-                -F "files[]=@$f"
-            done
-            curl -s -X GET "http://localhost:5050/allure-docker-service/generate-report?project_id=portfolio" > /dev/null
-            echo "Allure report: http://home-lab:5051/allure-docker-service/projects/portfolio/reports/latest"
-          fi
-
-      - name: Fail if tests failed
-        if: steps.tests.outcome == 'failure'
-        run: exit 1
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+    uses: 922-Studio/workflows/.github/workflows/frontend-e2e.yml@main
+    with:
+      node_version: '22'
+      build_command: 'npm run build && cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static'
+      browsers: 'chromium'
+      allure_project_id: 'portfolio'
+      allure_server_url: 'http://localhost:5050'
 
   # ────────────────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to server
     needs: [version, test]
-    runs-on: self-hosted
-    steps:
-      - name: Log deployment start
-        run: |
-          echo "Repository Path: /home/lab/portfolio"
-          echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
-
-      - name: Configure git credentials
-        working-directory: /home/lab/portfolio
-        run: |
-          REMOTE_URL=$(git config --get remote.origin.url)
-          if [[ "$REMOTE_URL" == https://* ]] && [ -n "${{ secrets.PAT_GITHUB }}" ]; then
-            REPO_PATH=$(echo "$REMOTE_URL" | sed 's|https://github.com/||')
-            git remote set-url origin "https://x-access-token:${{ secrets.PAT_GITHUB }}@github.com/$REPO_PATH"
-          fi
-
-      - name: Pull latest changes
-        working-directory: /home/lab/portfolio
-        run: |
-          git fetch origin
-          git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
-
-      - name: Clean up git credentials
-        if: always()
-        working-directory: /home/lab/portfolio
-        run: |
-          REMOTE_URL=$(git config --get remote.origin.url)
-          if [[ "$REMOTE_URL" == *"x-access-token"* ]]; then
-            REPO_PATH=$(echo "$REMOTE_URL" | sed 's|https://x-access-token:.*@github.com/||')
-            git remote set-url origin "https://github.com/$REPO_PATH"
-          fi
-
-      - name: Run deploy script
-        working-directory: /home/lab/portfolio
-        run: |
-          export SKIP_PULL=true
-          chmod +x deploy.sh
-          ./deploy.sh
-
-      - name: Verify deployment
-        working-directory: /home/lab/portfolio
-        run: |
-          docker compose ps portfolio
-          STATUS=$(docker compose ps -q portfolio | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null || echo "unknown")
-          if [ "$STATUS" != "running" ]; then
-            echo "Container is not running (status: $STATUS)"
-            exit 1
-          fi
-          echo "Container is running successfully"
-
-      - name: Show container logs
-        working-directory: /home/lab/portfolio
-        run: docker compose logs --tail=30 portfolio
-
-      - name: Failure diagnostics
-        if: failure()
-        working-directory: /home/lab/portfolio
-        run: |
-          echo "=== Container Status ==="
-          docker compose ps
-          echo "=== Container Logs ==="
-          docker compose logs --tail=100
-          echo "=== System Info ==="
-          docker system df
+    uses: 922-Studio/workflows/.github/workflows/deploy-docker.yml@main
+    with:
+      repository_path: '/home/lab/portfolio'
+      boot_script: 'deploy.sh'
+      service_name: 'portfolio'
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
   notify-success:
     name: Discord notification (success)
     needs: [version, test, deploy]
     if: success()
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Send Discord notification
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          DISCORD_CHANNEL_ID: '1465354445113000032'
-          WORKFLOW_STATUS: success
-          WORKFLOW_NAME: ${{ github.workflow }}
-          REPOSITORY_NAME: ${{ github.repository }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          LATEST_VERSION: ${{ needs.version.outputs.new_version }}
-        run: python .github/scripts/send_discord.py
+    uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
+    with:
+      enable_email: false
+      enable_discord: true
+      discord_channel_id: '1465354445113000032'
+      workflow_status: 'success'
+      workflow_name: ${{ github.workflow }}
+      repository_name: ${{ github.repository }}
+      run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      latest_version: ${{ needs.version.outputs.new_version }}
+    secrets:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
 
   # ────────────────────────────────────────────────────────────────────────────
   notify-failure:
     name: Discord notification (failure)
     needs: [version, test, deploy]
     if: failure()
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Send Discord notification
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          DISCORD_CHANNEL_ID: '1465354445113000032'
-          WORKFLOW_STATUS: failure
-          WORKFLOW_NAME: ${{ github.workflow }}
-          REPOSITORY_NAME: ${{ github.repository }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: python .github/scripts/send_discord.py
+    uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
+    with:
+      enable_email: false
+      enable_discord: true
+      discord_channel_id: '1465354445113000032'
+      workflow_status: 'failure'
+      workflow_name: ${{ github.workflow }}
+      repository_name: ${{ github.repository }}
+      run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    secrets:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
