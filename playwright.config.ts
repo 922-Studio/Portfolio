@@ -22,7 +22,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `cp -r .next/static .next/standalone/.next/static && PORT=${port} node .next/standalone/server.js`,
+    command: `mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public && PORT=${port} node .next/standalone/server.js`,
     url: `http://localhost:${port}`,
     reuseExistingServer: !process.env.CI,
   },

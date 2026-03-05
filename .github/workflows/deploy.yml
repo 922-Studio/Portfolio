@@ -30,7 +30,7 @@ jobs:
     uses: 922-Studio/workflows/.github/workflows/frontend-e2e.yml@main
     with:
       node_version: '22'
-      build_command: 'npm run build && cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static'
+      build_command: 'npm run build'
       browsers: 'chromium'
       allure_project_id: 'portfolio'
       allure_server_url: 'http://localhost:5050'
