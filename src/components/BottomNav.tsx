@@ -3,17 +3,21 @@
 import {useState, useEffect, useRef} from 'react';
 import {Home, User, Layers, FolderOpen, Mail} from 'lucide-react';
 import {useTranslations} from 'next-intl';
+import {usePathname} from '@/i18n/navigation';
+import {Link} from '@/i18n/navigation';
 
 const navItems = [
-  {key: 'home', icon: Home, href: '#'},
-  {key: 'about', icon: User, href: '#about'},
-  {key: 'stack', icon: Layers, href: '#stack'},
-  {key: 'projects', icon: FolderOpen, href: '#projects'},
-  {key: 'contact', icon: Mail, href: '#contact'},
+  {key: 'home', icon: Home, hash: ''},
+  {key: 'about', icon: User, hash: '#about'},
+  {key: 'stack', icon: Layers, hash: '#stack'},
+  {key: 'projects', icon: FolderOpen, hash: '#projects'},
+  {key: 'contact', icon: Mail, hash: '#contact'},
 ];
 
 export function BottomNav() {
   const t = useTranslations('nav');
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -42,15 +46,30 @@ export function BottomNav() {
       <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           const Icon = item.icon;
+          const className = "flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-xs transition-colors bg-accent-from/15 text-accent-from";
+
+          if (isHome) {
+            return (
+              <a
+                key={item.key}
+                href={item.hash || '#'}
+                className={className}
+              >
+                <Icon size={20} strokeWidth={1.5} />
+                <span>{t(item.key)}</span>
+              </a>
+            );
+          }
+
           return (
-            <a
+            <Link
               key={item.key}
-              href={item.href}
-              className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-xs transition-colors bg-accent-from/15 text-accent-from"
+              href={`/${item.hash}`}
+              className={className}
             >
               <Icon size={20} strokeWidth={1.5} />
               <span>{t(item.key)}</span>
-            </a>
+            </Link>
           );
         })}
       </div>

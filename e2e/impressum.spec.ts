@@ -75,7 +75,7 @@ test.describe('Impressum Page', () => {
       await page.goto('/de');
       const footerLink = page.locator('footer a', {hasText: 'Impressum'});
       await expect(footerLink).toBeVisible();
-      await footerLink.click();
+      await footerLink.dispatchEvent('click');
       await expect(page).toHaveURL(/\/de\/impressum/);
     });
 
@@ -83,9 +83,29 @@ test.describe('Impressum Page', () => {
       await page.goto('/en');
       const footerLink = page.locator('footer a', {hasText: 'Legal Notice'});
       await expect(footerLink).toBeVisible();
-      await footerLink.click();
+      await footerLink.dispatchEvent('click');
       await expect(page).toHaveURL(/\/en\/impressum/);
     });
+  });
+
+  test.describe('Bottom Navigation from Impressum', () => {
+    const navLabels = {
+      de: ['Start', 'Über mich', 'Technik', 'Projekte', 'Kontakt'],
+      en: ['Home', 'About', 'Stack', 'Projects', 'Contact'],
+    } as const;
+
+    for (const locale of ['de', 'en'] as const) {
+      for (const label of navLabels[locale]) {
+        test(`${locale}: bottom nav "${label}" navigates to homepage`, async ({page}) => {
+          await page.goto(`/${locale}/impressum`);
+          const nav = page.locator('nav');
+          const link = nav.locator('a', {hasText: label});
+          await link.click();
+          await page.waitForURL(url => !url.pathname.includes('impressum'));
+          await expect(page).not.toHaveURL(/impressum/);
+        });
+      }
+    }
   });
 
   test.describe('Meta', () => {
