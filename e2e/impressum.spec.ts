@@ -37,12 +37,6 @@ test.describe('Impressum Page', () => {
       await expect(odrLink).toHaveAttribute('target', '_blank');
     });
 
-    test('back link navigates to homepage', async ({page}) => {
-      const backLink = page.locator('a', {hasText: 'Zurück zur Startseite'});
-      await expect(backLink).toBeVisible();
-      await backLink.click();
-      await expect(page).toHaveURL(/\/de\/?$/);
-    });
   });
 
   test.describe('English', () => {
@@ -60,13 +54,6 @@ test.describe('Impressum Page', () => {
 
     test('displays address with English country name', async ({page}) => {
       await expect(page.locator('text=Germany')).toBeVisible();
-    });
-
-    test('back link navigates to English homepage', async ({page}) => {
-      const backLink = page.locator('a', {hasText: 'Back to Homepage'});
-      await expect(backLink).toBeVisible();
-      await backLink.click();
-      await expect(page).toHaveURL(/\/en\/?$/);
     });
   });
 
@@ -106,6 +93,31 @@ test.describe('Impressum Page', () => {
         });
       }
     }
+  });
+
+  test.describe('Bottom Nav Visibility', () => {
+    test('bottom nav stays visible on impressum when scrolling down', async ({page}) => {
+      await page.goto('/de/impressum');
+      const nav = page.locator('nav');
+      await expect(nav).toBeVisible();
+      await expect(nav).toHaveAttribute('data-always-visible', 'true');
+      // Scroll down — nav should remain visible
+      await page.evaluate(() => window.scrollTo(0, 500));
+      await page.waitForTimeout(400);
+      await expect(nav).toBeVisible();
+      await expect(nav).not.toHaveCSS('opacity', '0');
+    });
+
+    test('bottom nav hides on homepage when scrolling down', async ({page}) => {
+      await page.goto('/de');
+      const nav = page.locator('nav');
+      await expect(nav).toBeVisible();
+      await expect(nav).not.toHaveAttribute('data-always-visible');
+      // Scroll down past threshold — nav should hide
+      await page.evaluate(() => window.scrollTo(0, 800));
+      await page.waitForTimeout(400);
+      await expect(nav).toHaveCSS('opacity', '0');
+    });
   });
 
   test.describe('Meta', () => {

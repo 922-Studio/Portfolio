@@ -18,10 +18,12 @@ export function BottomNav() {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const alwaysVisible = !isHome;
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    if (alwaysVisible) return;
     const handleScroll = () => {
       const currentY = window.scrollY;
       if (currentY < 50) {
@@ -35,12 +37,13 @@ export function BottomNav() {
     };
     window.addEventListener('scroll', handleScroll, {passive: true});
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [alwaysVisible]);
 
   return (
     <nav
+      data-always-visible={alwaysVisible || undefined}
       className={`fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 backdrop-blur-md transition-all duration-300 ${
-        hidden ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+        !alwaysVisible && hidden ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
       }`}
     >
       <div className="flex items-center justify-around px-2 py-2">

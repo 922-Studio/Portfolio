@@ -2,8 +2,7 @@ import type {Metadata} from 'next';
 import {setRequestLocale} from 'next-intl/server';
 import {getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
-import {ArrowLeft, MapPin, Mail} from 'lucide-react';
-import {Link} from '@/i18n/navigation';
+import {MapPin, Mail} from 'lucide-react';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -32,17 +31,8 @@ export default async function ImpressumPage({params}: Props) {
   return (
     <section className="px-6 py-20">
       <div className="mx-auto max-w-2xl">
-        {/* Back link */}
-        <Link
-          href="/"
-          className="group inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-text-primary"
-        >
-          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
-          {t('back')}
-        </Link>
-
         {/* Heading — same style as other sections */}
-        <h1 className="mt-10 text-center font-heading text-3xl font-bold sm:text-4xl">
+        <h1 className="text-center font-heading text-3xl font-bold sm:text-4xl">
           {t('heading')}
         </h1>
         <p className="mt-3 text-center text-text-muted">{t('subheading')}</p>
