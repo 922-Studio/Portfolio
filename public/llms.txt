@@ -1,0 +1,24 @@
+# Gregor Krykon
+
+> Automation Engineer & Full-Stack Developer based in Grafing bei München, Bavaria, Germany.
+
+## About
+
+Gregor Krykon is a software developer specializing in automation, CI/CD, test automation, and full-stack web development. He works as an apprentice software developer (Fachinformatiker Anwendungsentwicklung) at FELLOWPRO AG and runs freelance web projects under the brand 922 Studio.
+
+## Skills
+
+Python, Vue.js, Next.js, FastAPI, Docker, Kubernetes, Helm, GitHub Actions, Playwright, Tailwind CSS, Shopware, WordPress
+
+## Projects
+
+- krimispiele.com — Shopware e-commerce setup and management
+- samhain-verlag.de — WordPress site management
+- krimidinnerverzeichnis.de — Custom HTML/JS directory for crime dinner events
+
+## Contact
+
+- Email: gregor@922-studio.com
+- GitHub: https://github.com/Tannjev922
+- LinkedIn: https://www.linkedin.com/in/gregor-krykon-11007428a/
+- Website: https://gregor.922-studio.com
