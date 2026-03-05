@@ -1,0 +1,11 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_GA_MEASUREMENT_ID: G-1GSBD62ZVM
+    container_name: portfolio
+    ports:
+      - '3922:3000'
+    restart: unless-stopped
