@@ -52,7 +52,29 @@
     "email": "gregor@922-studio.com"
   },
   "footer": {
-    "built_with": "Built with"
+    "built_with": "Built with",
+    "impressum": "Legal Notice"
+  },
+  "impressum": {
+    "title": "Legal Notice",
+    "heading": "Legal Notice",
+    "subheading": "Information pursuant to § 5 DDG (German Digital Services Act)",
+    "responsible": "Responsible",
+    "name": "Gregor Krykon",
+    "brand": "922 Studio",
+    "address_line1": "Jahnstraße 2",
+    "address_line2": "85567 Grafing bei München",
+    "address_country": "Germany",
+    "contact_heading": "Contact",
+    "email_label": "Email",
+    "email": "gregor@922-studio.com",
+    "dispute_heading": "Dispute Resolution",
+    "dispute_text": "The European Commission provides a platform for online dispute resolution (ODR):",
+    "dispute_link_text": "https://ec.europa.eu/consumers/odr/",
+    "dispute_note": "We are not willing or obligated to participate in dispute resolution proceedings before a consumer arbitration board.",
+    "liability_heading": "Liability for Content",
+    "liability_text": "As a service provider, we are responsible for our own content on these pages in accordance with § 7 (1) DDG under general law. According to §§ 8 to 10 DDG, however, we are not obligated as a service provider to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.",
+    "back": "← Back to Homepage"
   },
   "lang": {
     "en": "EN",

@@ -1,5 +1,6 @@
 import {Github, Linkedin} from 'lucide-react';
 import {useTranslations} from 'next-intl';
+import {Link} from '@/i18n/navigation';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -33,7 +34,13 @@ export function Footer() {
           {' & '}
           <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-text-secondary">Tailwind CSS</a>
         </p>
-        <p>&copy; 2026 Gregor Krykon</p>
+        <div className="flex items-center gap-3">
+          <p>&copy; 2026 Gregor Krykon</p>
+          <span className="text-border">·</span>
+          <Link href="/impressum" className="underline transition hover:text-text-secondary">
+            {t('impressum')}
+          </Link>
+        </div>
       </div>
     </footer>
   );
