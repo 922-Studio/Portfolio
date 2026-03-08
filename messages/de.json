@@ -17,7 +17,7 @@
   "about": {
     "heading": "Über mich",
     "body1": "Ich bin Gregor — ein Entwickler aus Bayern, der mit 15 angefangen hat, Dinge zu bauen, und nie aufgehört hat.",
-    "body2": "Ich habe mit Spieleentwicklung angefangen, mich dann in Web-Shops eingearbeitet und schließlich meinen Weg in die Automatisierung und Full-Stack-Entwicklung gefunden. Heute arbeite ich als Azubi bei Fellowpro im Bereich Software-Entwicklung mit Schwerpunkt CI/CD, Testautomatisierung und DevOps — und betreibe nebenbei eigene Projekte und selbst gehostete Infrastruktur.",
+    "body2": "Ich habe mit Spieleentwicklung angefangen, mich dann in Web-Shops eingearbeitet und schließlich meinen Weg in die Automatisierung und Full-Stack-Entwicklung gefunden. Heute arbeite ich bei der FELLOWPRO AG im Bereich Software-Entwicklung mit Schwerpunkt CI/CD, Testautomatisierung und DevOps — und betreibe nebenbei eigene Projekte und selbst gehostete Infrastruktur.",
     "body3": "Mein Ansatz: erst etwas bauen, das funktioniert — dann solide machen. Kein endloses Planen, kein Perfektionismus — nur konsistenter, getesteter, echter Output.",
     "body4": "Wenn du eine Website, eine App oder ein System brauchst, das dir die manuelle Arbeit abnimmt — lass uns reden.",
     "photos_label": "Das bin ich"
@@ -42,7 +42,7 @@
     },
     "krimidinnerverzeichnis": {
       "title": "krimidinnerverzeichnis.de",
-      "desc": "Von Grund auf in HTML & JavaScript gebaut — ein Verzeichnis für Krimidinner-Events in Deutschland und Österreich. Entwickelt für Lympselon."
+      "desc": "Datenbankbasierte Vergleichsplattform für Krimi-Spiele in Deutschland und Österreich. Gebaut mit HTML & JavaScript. Entwickelt für Lympselon – Krimi Events."
     }
   },
   "contact": {
