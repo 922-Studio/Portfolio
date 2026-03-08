@@ -45,6 +45,14 @@
       "desc": "Database-driven comparison platform for crime games across Germany and Austria. Built with HTML & JavaScript. Developed for Lympselon – Krimi Events."
     }
   },
+  "testimonials": {
+    "heading": "Testimonials",
+    "soenke": {
+      "quote": "What I especially appreciate about working with Gregor: he turns ideas into reality right away instead of debating them endlessly. Very quickly you get a working tool or site that is then refined and optimised together.",
+      "name": "Sönke, Lympselon",
+      "role": "Owner, Lympselon – Krimi Events"
+    }
+  },
   "contact": {
     "heading": "Contact",
     "text": "Have a project in mind or just want to say hi? Reach out — I'd love to hear from you.",

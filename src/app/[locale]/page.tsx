@@ -4,6 +4,7 @@ import {SectionDivider} from '@/components/sections/SectionDivider';
 import {AboutSection} from '@/components/sections/AboutSection';
 import {StackSection} from '@/components/sections/StackSection';
 import {ProjectsSection} from '@/components/sections/ProjectsSection';
+import {TestimonialsSection} from '@/components/sections/TestimonialsSection';
 import {ContactSection} from '@/components/sections/ContactSection';
 
 type Props = {
@@ -23,6 +24,8 @@ export default async function HomePage({params}: Props) {
       <StackSection />
       <SectionDivider />
       <ProjectsSection />
+      <SectionDivider />
+      <TestimonialsSection />
       <SectionDivider />
       <ContactSection />
     </>
