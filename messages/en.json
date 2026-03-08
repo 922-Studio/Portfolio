@@ -43,6 +43,10 @@
     "krimidinnerverzeichnis": {
       "title": "krimidinnerverzeichnis.de",
       "desc": "Database-driven comparison platform for crime games across Germany and Austria. Built with HTML & JavaScript. Developed for Lympselon – Krimi Events."
+    },
+    "sweatvalley_bingo": {
+      "title": "Sweatvalley Bingo",
+      "desc": "Real-time multiplayer bingo for the classroom — lobby system, live leaderboard and automatic rejoin. Developed and shipped for Leo. Infrastructure, CI/CD and tests by me."
     }
   },
   "testimonials": {
