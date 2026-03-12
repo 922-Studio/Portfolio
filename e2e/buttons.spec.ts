@@ -42,6 +42,7 @@ test.describe('BottomNav', () => {
       {text: 'About', href: '#about'},
       {text: 'Stack', href: '#stack'},
       {text: 'Projects', href: '#projects'},
+      {text: 'Testimonials', href: '#testimonials'},
       {text: 'Contact', href: '#contact'},
     ];
 
@@ -79,13 +80,14 @@ test.describe('Projects Section', () => {
 
   test('project cards link to correct live URLs', async ({page}) => {
     const expectedUrls = [
+      'https://sweatvalley-bingo.922-studio.com',
       'https://krimispiele.com',
       'https://samhain-verlag.de',
       'https://krimidinnerverzeichnis.de',
     ];
 
     for (const url of expectedUrls) {
-      const link = page.locator(`#projects a[href="${url}"]`);
+      const link = page.locator(`#projects a[href="${url}"]`).first();
       await expect(link).toHaveAttribute('target', '_blank');
     }
   });

@@ -77,8 +77,8 @@ test.describe('Impressum Page', () => {
 
   test.describe('Bottom Navigation from Impressum', () => {
     const navLabels = {
-      de: ['Start', 'Über mich', 'Technik', 'Projekte', 'Kontakt'],
-      en: ['Home', 'About', 'Stack', 'Projects', 'Contact'],
+      de: ['Start', 'Über mich', 'Technik', 'Projekte', 'Referenzen', 'Kontakt'],
+      en: ['Home', 'About', 'Stack', 'Projects', 'Testimonials', 'Contact'],
     } as const;
 
     for (const locale of ['de', 'en'] as const) {

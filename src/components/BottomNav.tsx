@@ -1,7 +1,7 @@
 'use client';
 
 import {useState, useEffect, useRef} from 'react';
-import {Home, User, Layers, FolderOpen, Mail} from 'lucide-react';
+import {Home, User, Layers, FolderOpen, MessageCircle, Mail} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {usePathname} from '@/i18n/navigation';
 import {Link} from '@/i18n/navigation';
@@ -11,6 +11,7 @@ const navItems = [
   {key: 'about', icon: User, hash: '#about'},
   {key: 'stack', icon: Layers, hash: '#stack'},
   {key: 'projects', icon: FolderOpen, hash: '#projects'},
+  {key: 'testimonials', icon: MessageCircle, hash: '#testimonials'},
   {key: 'contact', icon: Mail, hash: '#contact'},
 ];
 
