@@ -1,6 +1,7 @@
 import {useTranslations} from 'next-intl';
 import {Mail, Github, Linkedin} from 'lucide-react';
 import {SiDiscord, SiTelegram, SiWhatsapp} from 'react-icons/si';
+import {ShareCard} from '@/components/ShareCard';
 
 export function ContactSection() {
   const t = useTranslations('contact');
@@ -68,6 +69,8 @@ export function ContactSection() {
           >
             <SiWhatsapp size={24} />
           </a>
+          <span className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
+          <ShareCard />
         </div>
       </div>
     </section>

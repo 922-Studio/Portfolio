@@ -94,5 +94,11 @@
   "theme": {
     "toggle_dark": "Dunkelmodus umschalten",
     "toggle_light": "Hellmodus umschalten"
+  },
+  "share": {
+    "button_label": "Seite teilen",
+    "tagline": "Ich automatisiere, was dich aufhält.",
+    "qr_alt": "QR-Code zur Website",
+    "scan_hint": "Scannen, um meine Seite zu öffnen"
   }
 }

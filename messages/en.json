@@ -94,5 +94,11 @@
   "theme": {
     "toggle_dark": "Toggle dark mode",
     "toggle_light": "Toggle light mode"
+  },
+  "share": {
+    "button_label": "Share this page",
+    "tagline": "I automate what slows you down.",
+    "qr_alt": "QR code to website",
+    "scan_hint": "Scan to visit my site"
   }
 }
