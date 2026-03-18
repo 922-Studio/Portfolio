@@ -64,7 +64,7 @@ test.describe('Share Card', () => {
       const modal = page.locator('[data-testid="share-modal"]');
       await expect(modal).toBeVisible();
 
-      await modal.locator('button[aria-label="Close"]').click();
+      await modal.locator('button[aria-label="Close"]:visible').click();
 
       await expect(modal).not.toBeVisible();
     });
