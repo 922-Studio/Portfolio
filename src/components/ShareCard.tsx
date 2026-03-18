@@ -58,18 +58,18 @@ export function ShareCard() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={close}
         >
-          <div className="relative flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
-          {/* Close button — top right outside card on mobile, hidden on desktop (stays inside) */}
+          <div className="relative w-full max-w-[340px]" onClick={(e) => e.stopPropagation()}>
+          {/* Close button — top right outside card on mobile only */}
           <button
             onClick={close}
-            className="sm:hidden absolute -top-1 right-0 z-10 rounded-full bg-white/20 p-2 transition hover:bg-white/30"
+            className="sm:hidden absolute -top-10 right-0 z-10 rounded-full bg-white/25 p-2 transition hover:bg-white/40"
             aria-label="Close"
           >
             <X size={18} className="text-white" />
           </button>
           {/* Card — fully gradient, wider padding, visible border */}
           <div
-            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/20 dark:ring-white/20"
+            className="relative w-full rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/20 dark:ring-white/20"
           >
             {/* Name & Title */}
             <div className="text-center text-white">
