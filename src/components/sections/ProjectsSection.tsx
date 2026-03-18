@@ -47,9 +47,9 @@ const PROJECTS = [
   },
 ];
 
-const CARD_WIDTH = 320; // w-80
+const CARD_WIDTH_SM = 280; // mobile
+const CARD_WIDTH_LG = 320; // sm+
 const GAP = 24; // gap-6
-const STEP = CARD_WIDTH + GAP;
 
 export function ProjectsSection() {
   const t = useTranslations('projects');
@@ -58,17 +58,20 @@ export function ProjectsSection() {
   const [transitionEnabled, setTransitionEnabled] = useState(true);
   const [paused, setPaused] = useState(false);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [cardWidth, setCardWidth] = useState(CARD_WIDTH_LG);
   const touchStartX = useRef(0);
 
   const totalSlides = PROJECTS.length;
   const slides = [...PROJECTS, ...PROJECTS, ...PROJECTS];
+  const step = cardWidth + GAP;
 
-  // Measure container width
+  // Measure container width + determine card size
   useEffect(() => {
     const update = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
+      setCardWidth(window.innerWidth < 640 ? CARD_WIDTH_SM : CARD_WIDTH_LG);
     };
     update();
     window.addEventListener('resize', update);
@@ -76,7 +79,7 @@ export function ProjectsSection() {
   }, []);
 
   // Center the current card in the viewport
-  const offset = (containerWidth - CARD_WIDTH) / 2 - currentIndex * STEP;
+  const offset = (containerWidth - cardWidth) / 2 - currentIndex * step;
 
   const goNext = useCallback(() => {
     setTransitionEnabled(true);
@@ -147,7 +150,8 @@ export function ProjectsSection() {
                 key={`${project.key}-${i}`}
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
-                className="flex w-80 flex-shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:border-accent-from/40 hover:shadow-md hover:shadow-accent-from/10"
+                className="flex flex-shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:border-accent-from/40 hover:shadow-md hover:shadow-accent-from/10"
+                style={{width: `${cardWidth}px`}}
               >
                 <a
                   href={project.liveUrl}
@@ -216,7 +220,7 @@ export function ProjectsSection() {
         <button
           onClick={goPrev}
           aria-label="Previous project"
-          className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface/40 p-2 opacity-50 backdrop-blur-sm transition hover:bg-surface/70 hover:opacity-100"
+          className="absolute left-0 sm:-left-14 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface/80 sm:bg-surface/40 p-2 opacity-70 sm:opacity-50 backdrop-blur-sm transition hover:bg-surface/70 hover:opacity-100"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -225,7 +229,7 @@ export function ProjectsSection() {
         <button
           onClick={goNext}
           aria-label="Next project"
-          className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface/40 p-2 opacity-50 backdrop-blur-sm transition hover:bg-surface/70 hover:opacity-100"
+          className="absolute right-0 sm:-right-14 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface/80 sm:bg-surface/40 p-2 opacity-70 sm:opacity-50 backdrop-blur-sm transition hover:bg-surface/70 hover:opacity-100"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
