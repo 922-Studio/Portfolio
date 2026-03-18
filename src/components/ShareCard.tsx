@@ -51,6 +51,7 @@ export function ShareCard() {
       {/* Modal overlay */}
       {open && (
         <div
+          data-testid="share-modal"
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={close}
         >
@@ -95,16 +96,16 @@ export function ShareCard() {
             <p className="mt-1.5 text-center text-xs text-white/50">
               {t('scan_hint')}
             </p>
-          </div>
 
-          {/* Close button below the card */}
-          <button
-            onClick={close}
-            className="rounded-full bg-white/20 p-2.5 transition hover:bg-white/30"
-            aria-label="Close"
-          >
-            <X size={20} className="text-white" />
-          </button>
+            {/* Close button at bottom of card */}
+            <button
+              onClick={close}
+              className="mx-auto mt-5 flex items-center justify-center rounded-full bg-white/15 p-2 transition hover:bg-white/25"
+              aria-label="Close"
+            >
+              <X size={18} className="text-white/70" />
+            </button>
+          </div>
           </div>
         </div>
       )}
