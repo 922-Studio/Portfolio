@@ -54,22 +54,13 @@ export function ShareCard() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={close}
         >
-          {/* Card — fully gradient, wider padding */}
+          <div className="flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
+          {/* Card — fully gradient, wider padding, visible border */}
           <div
-            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8"
-            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/40 dark:ring-white/40"
           >
-            {/* Close button */}
-            <button
-              onClick={close}
-              className="absolute top-4 right-4 rounded-full bg-white/20 p-1.5 transition hover:bg-white/30"
-              aria-label="Close"
-            >
-              <X size={16} className="text-white" />
-            </button>
-
             {/* Name & Title */}
-            <div className="text-center text-white mt-2">
+            <div className="text-center text-white">
               <h3 className="font-heading text-2xl font-bold tracking-tight">
                 Gregor Krykon
               </h3>
@@ -104,6 +95,16 @@ export function ShareCard() {
             <p className="mt-1.5 text-center text-xs text-white/50">
               {t('scan_hint')}
             </p>
+          </div>
+
+          {/* Close button below the card */}
+          <button
+            onClick={close}
+            className="rounded-full bg-white/20 p-2.5 transition hover:bg-white/30"
+            aria-label="Close"
+          >
+            <X size={20} className="text-white" />
+          </button>
           </div>
         </div>
       )}
