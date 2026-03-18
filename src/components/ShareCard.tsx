@@ -57,7 +57,7 @@ export function ShareCard() {
           <div className="flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
           {/* Card — fully gradient, wider padding, visible border */}
           <div
-            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/40 dark:ring-white/40"
+            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/20 dark:ring-white/20"
           >
             {/* Name & Title */}
             <div className="text-center text-white">
