@@ -25,15 +25,18 @@ export function ShareCard() {
     return () => document.removeEventListener('keydown', handler);
   }, [open, close]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open + signal to hide footer/nav on mobile
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.setAttribute('data-share-open', '');
     } else {
       document.body.style.overflow = '';
+      document.documentElement.removeAttribute('data-share-open');
     }
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.removeAttribute('data-share-open');
     };
   }, [open]);
 

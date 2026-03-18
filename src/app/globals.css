@@ -88,6 +88,14 @@
   color: var(--icon-dark);
 }
 
+/* Hide footer & bottom nav on mobile when share card is open */
+@media (max-width: 639px) {
+  html[data-share-open] footer,
+  html[data-share-open] nav:last-of-type {
+    display: none !important;
+  }
+}
+
 /* Smooth scroll for same-page navigation */
 html {
   scroll-behavior: smooth;
