@@ -54,57 +54,56 @@ export function ShareCard() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={close}
         >
-          {/* Card */}
+          {/* Card — fully gradient, wider padding */}
           <div
-            className="relative w-full max-w-[320px] rounded-2xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Gradient header */}
-            <div className="bg-gradient-to-br from-accent-from to-accent-to px-6 pt-8 pb-6 text-center text-white">
-              {/* Close button */}
-              <button
-                onClick={close}
-                className="absolute top-3 right-3 rounded-full bg-white/20 p-1.5 transition hover:bg-white/30"
-                aria-label="Close"
-              >
-                <X size={16} />
-              </button>
+            {/* Close button */}
+            <button
+              onClick={close}
+              className="absolute top-4 right-4 rounded-full bg-white/20 p-1.5 transition hover:bg-white/30"
+              aria-label="Close"
+            >
+              <X size={16} className="text-white" />
+            </button>
 
+            {/* Name & Title */}
+            <div className="text-center text-white mt-2">
               <h3 className="font-heading text-2xl font-bold tracking-tight">
                 Gregor Krykon
               </h3>
-              <p className="mt-1 text-sm font-medium text-white/85">
+              <p className="mt-1 text-sm font-medium text-white/80">
                 Automation Engineer · Full-Stack Dev
               </p>
-              <p className="mt-3 text-xs italic text-white/70">
-                {t('tagline')}
-              </p>
             </div>
 
-            {/* QR + Info body */}
-            <div className="bg-surface px-6 py-6 text-center">
-              {/* QR Code */}
-              <div className="mx-auto w-48 h-48 rounded-xl bg-white p-3 shadow-md">
-                <Image
-                  src={qrSrc}
-                  alt={t('qr_alt')}
-                  width={192}
-                  height={192}
-                  className="h-full w-full dark:invert-0"
-                  priority
-                />
-              </div>
+            {/* Tagline */}
+            <p className="mt-4 text-center text-xs italic text-white/65">
+              &ldquo;{t('tagline')}&rdquo;
+            </p>
 
-              {/* URL */}
-              <p className="mt-4 text-sm font-medium text-text-secondary">
-                {siteUrl}
-              </p>
-
-              {/* Scan hint */}
-              <p className="mt-2 text-xs text-text-muted">
-                {t('scan_hint')}
-              </p>
+            {/* QR Code — white card inset */}
+            <div className="mx-auto mt-6 w-48 h-48 rounded-2xl bg-white p-3 shadow-lg">
+              <Image
+                src={qrSrc}
+                alt={t('qr_alt')}
+                width={192}
+                height={192}
+                className="h-full w-full"
+                priority
+              />
             </div>
+
+            {/* URL */}
+            <p className="mt-5 text-center text-sm font-semibold text-white/90">
+              {siteUrl}
+            </p>
+
+            {/* Scan hint */}
+            <p className="mt-1.5 text-center text-xs text-white/50">
+              {t('scan_hint')}
+            </p>
           </div>
         </div>
       )}
