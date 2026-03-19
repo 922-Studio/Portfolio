@@ -14,10 +14,10 @@ permissions:
   actions: write
   issues: write
 
-# Queue concurrent E2E runs — never cancel an in-progress run
+# Cancel any in-progress E2E run when a newer one is triggered — latest wins
 concurrency:
   group: portfolio-e2e
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   e2e:
