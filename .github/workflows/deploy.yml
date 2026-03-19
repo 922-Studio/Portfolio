@@ -1,4 +1,4 @@
-name: Deploy Portfolio
+name: Portfolio Deploy
 
 permissions:
   contents: write
@@ -24,23 +24,23 @@ jobs:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
-  test:
-    name: Run E2E tests
+  kick-off-e2e:
+    name: Kick off E2E tests
     needs: version
-    uses: 922-Studio/workflows/.github/workflows/frontend-e2e.yml@main
-    with:
-      node_version: '22'
-      build_command: 'npm run build'
-      browsers: 'chromium'
-      allure_project_id: 'portfolio'
-      allure_server_url: 'http://localhost:5050'
-    secrets:
-      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+    runs-on: self-hosted
+    steps:
+      - name: Trigger E2E workflow
+        run: |
+          gh workflow run e2e.yml \
+            --repo ${{ github.repository }} \
+            --ref ${{ github.ref_name }}
+        env:
+          GH_TOKEN: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to server
-    needs: [version, test]
+    needs: version
     uses: 922-Studio/workflows/.github/workflows/deploy-docker.yml@main
     with:
       repository_path: '/home/lab/portfolio'
@@ -52,7 +52,7 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-success:
     name: Discord notification (success)
-    needs: [version, test, deploy]
+    needs: [version, deploy]
     if: success()
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
@@ -70,7 +70,7 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-failure:
     name: Discord notification (failure)
-    needs: [version, test, deploy]
+    needs: [version, deploy]
     if: failure()
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:

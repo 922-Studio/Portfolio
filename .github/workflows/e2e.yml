@@ -1,0 +1,83 @@
+name: Portfolio Run E2E Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      allure_launch_name:
+        required: false
+        type: string
+        default: ''
+        description: 'Optional Allure launch name override'
+
+permissions:
+  contents: read
+  actions: write
+  issues: write
+
+# Queue concurrent E2E runs — never cancel an in-progress run
+concurrency:
+  group: portfolio-e2e
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    name: Run E2E tests (Playwright + Allure)
+    uses: 922-Studio/workflows/.github/workflows/frontend-e2e.yml@main
+    with:
+      node_version: '22'
+      build_command: 'npm run build'
+      browsers: 'chromium'
+      allure_project_id: 'portfolio'
+      allure_server_url: 'http://localhost:5050'
+      allure_launch_name: ${{ inputs.allure_launch_name || 'Portfolio E2E Tests' }}
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  create-issue:
+    needs: e2e
+    if: failure()
+    uses: 922-Studio/workflows/.github/workflows/create-issue.yml@main
+    with:
+      job_name: 'e2e'
+      workflow_status: 'failure'
+      repository_name: '${{ github.repository }}'
+      branch_name: '${{ github.ref_name }}'
+      run_number: '${{ github.run_number }}'
+      run_url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      run_id: '${{ github.run_id }}'
+      triggering_actor: '${{ github.actor }}'
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  notify-failure:
+    needs: [e2e, create-issue]
+    if: failure()
+    uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
+    with:
+      enable_email: false
+      enable_discord: true
+      discord_channel_id: '1465354445113000032'
+      workflow_status: 'failure'
+      workflow_name: '${{ github.workflow }}'
+      repository_name: '${{ github.repository }}'
+      run_url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      issue_url: '${{ needs.create-issue.outputs.issue_url }}'
+    secrets:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  notify-success:
+    needs: e2e
+    if: success()
+    uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
+    with:
+      enable_email: false
+      enable_discord: true
+      discord_channel_id: '1465354445113000032'
+      workflow_status: 'success'
+      workflow_name: '${{ github.workflow }}'
+      repository_name: '${{ github.repository }}'
+      run_url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+    secrets:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
