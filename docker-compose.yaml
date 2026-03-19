@@ -6,6 +6,15 @@ services:
       args:
         NEXT_PUBLIC_GA_MEASUREMENT_ID: G-1GSBD62ZVM
     container_name: portfolio
-    ports:
-      - '3922:3000'
     restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portfolio.rule=Host(`gregor.922-studio.com`)"
+      - "traefik.http.routers.portfolio.entrypoints=web"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+
+networks:
+  proxy:
+    external: true
