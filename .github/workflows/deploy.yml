@@ -3,6 +3,7 @@ name: Portfolio Deploy
 permissions:
   contents: write
   actions: write
+  issues: write
 
 on:
   push:
@@ -24,9 +25,31 @@ jobs:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
+  tests:
+    name: Run unit tests (Vitest + Allure)
+    needs: version
+    uses: 922-Studio/workflows/.github/workflows/frontend-tests.yml@main
+    with:
+      node_version: '22'
+      install_command: 'npm ci'
+      test_command: 'npm run test:coverage'
+      build_command: 'npm run build'
+      run_build: true
+      allure_results_dir: 'reports/allure'
+      allure_server_url: 'http://home-lab:5050'
+      allure_project_id: 'portfolio-unit'
+      allure_launch_name: 'Portfolio Unit Tests'
+      coverage_fail_under: 70
+      pushgateway_url: 'http://home-lab:9091'
+      env_file_source: '/home/lab/portfolio/.env'
+    secrets:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  # ────────────────────────────────────────────────────────────────────────────
   kick-off-e2e:
     name: Kick off E2E tests
-    needs: version
+    needs: tests
     runs-on: self-hosted
     steps:
       - name: Trigger E2E workflow
@@ -40,12 +63,29 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to server
-    needs: version
+    needs: tests
     uses: 922-Studio/workflows/.github/workflows/deploy-docker.yml@main
     with:
       repository_path: '/home/lab/portfolio'
       boot_script: 'deploy.sh'
       service_name: 'portfolio'
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  # ────────────────────────────────────────────────────────────────────────────
+  create-issue:
+    needs: [tests, deploy]
+    if: failure()
+    uses: 922-Studio/workflows/.github/workflows/create-issue.yml@main
+    with:
+      job_name: 'tests / deploy'
+      workflow_status: 'failure'
+      repository_name: '${{ github.repository }}'
+      branch_name: '${{ github.ref_name }}'
+      run_number: '${{ github.run_number }}'
+      run_url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      run_id: '${{ github.run_id }}'
+      triggering_actor: '${{ github.actor }}'
     secrets:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
@@ -70,7 +110,7 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-failure:
     name: Discord notification (failure)
-    needs: [version, deploy]
+    needs: [tests, deploy, create-issue]
     if: failure()
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
@@ -81,5 +121,7 @@ jobs:
       workflow_name: ${{ github.workflow }}
       repository_name: ${{ github.repository }}
       run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      issue_url: '${{ needs.create-issue.outputs.issue_url }}'
     secrets:
       DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}

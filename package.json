@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "test": "playwright test",
-    "test:install": "playwright install --with-deps chromium"
+    "test:install": "playwright install --with-deps chromium",
+    "test:unit": "vitest",
+    "test:unit:ci": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.1",
@@ -23,13 +26,21 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.9",
     "allure-playwright": "^3.5.0",
+    "allure-vitest": "3.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^27.4.0",
     "jsqr": "^1.4.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.9"
   }
 }
