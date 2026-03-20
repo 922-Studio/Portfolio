@@ -17,8 +17,9 @@ export default defineConfig({
           name: 'Portfolio E2E Coverage',
           outputFile: './coverage/e2e/index.html',
           coverage: {
+            outputDir: './reports',
             reports: [
-              ['cobertura', {file: 'reports/cobertura-coverage.xml'}],
+              ['cobertura'],
               ['console-details'],
             ],
           },
