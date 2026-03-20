@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from './fixtures';
 
 test.describe('Impressum Page', () => {
   test.describe('German', () => {
