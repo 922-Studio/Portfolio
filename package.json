@@ -35,7 +35,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^2.1.9",
     "allure-playwright": "^3.5.0",
-    "allure-vitest": "3.4.2",
+    "allure-vitest": "3.5.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "jsdom": "^27.4.0",
