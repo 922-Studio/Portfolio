@@ -1,15 +1,29 @@
 import {defineConfig, devices} from '@playwright/test';
 
-const port = process.env.CI ? 3099 : 3098;
+const isCI = !!process.env.CI;
+const port = isCI ? 3099 : 3098;
 
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: process.env.CI
-    ? [['html'], ['allure-playwright', {outputFolder: 'allure-results'}]]
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 1 : undefined,
+  reporter: isCI
+    ? [
+        ['html'],
+        ['allure-playwright', {outputFolder: 'allure-results'}],
+        ['monocart-reporter', {
+          name: 'Portfolio E2E Coverage',
+          outputFile: './coverage/e2e/index.html',
+          coverage: {
+            reports: [
+              ['cobertura', {file: 'reports/cobertura-coverage.xml'}],
+              ['console-details'],
+            ],
+          },
+        }],
+      ]
     : 'html',
   use: {
     baseURL: `http://localhost:${port}`,
@@ -24,6 +38,6 @@ export default defineConfig({
   webServer: {
     command: `mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public && PORT=${port} node .next/standalone/server.js`,
     url: `http://localhost:${port}`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: !isCI,
   },
 });
