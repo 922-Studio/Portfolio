@@ -65,6 +65,32 @@ test.describe('Header', () => {
     const de = page.locator('header').getByText('DE', {exact: true});
     await expect(de).toHaveAttribute('href', /\/de/);
   });
+
+  test('clicking DE navigates to /de locale', async ({page}) => {
+    const de = page.locator('header').getByText('DE', {exact: true});
+    await de.click();
+    await page.waitForURL('**/de');
+    await expect(page).toHaveURL(/\/de/);
+  });
+
+  test('clicking EN from /de navigates back to /en', async ({page}) => {
+    await page.goto('/de');
+    const en = page.locator('header').getByText('EN', {exact: true});
+    await en.click();
+    await page.waitForURL('**/en');
+    await expect(page).toHaveURL(/\/en/);
+  });
+
+  test('EN label has active style on /en', async ({page}) => {
+    const en = page.locator('header').getByText('EN', {exact: true});
+    await expect(en).toHaveClass(/text-text-primary/);
+  });
+
+  test('DE label has active style on /de', async ({page}) => {
+    await page.goto('/de');
+    const de = page.locator('header').getByText('DE', {exact: true});
+    await expect(de).toHaveClass(/text-text-primary/);
+  });
 });
 
 test.describe('BottomNav', () => {
