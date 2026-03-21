@@ -87,6 +87,8 @@ export default async function LocaleLayout({children, params}: Props) {
       sameAs: [
         'https://github.com/Tannjev922',
         'https://www.linkedin.com/in/gregor-krykon-11007428a/',
+        'https://www.xing.com/profile/Gregor_Krykon',
+        'https://g.dev/krykon-gregor',
       ],
       address: {
         '@type': 'PostalAddress',

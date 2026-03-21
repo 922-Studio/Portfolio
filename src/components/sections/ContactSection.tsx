@@ -1,6 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {Mail, Github, Linkedin} from 'lucide-react';
-import {SiDiscord, SiTelegram, SiWhatsapp} from 'react-icons/si';
+import {SiDiscord, SiTelegram, SiWhatsapp, SiXing, SiGoogle} from 'react-icons/si';
 import {ShareCard} from '@/components/ShareCard';
 
 export function ContactSection() {
@@ -41,6 +41,24 @@ export function ContactSection() {
             aria-label="LinkedIn"
           >
             <Linkedin size={24} />
+          </a>
+          <a
+            href="https://www.xing.com/profile/Gregor_Krykon"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-muted transition hover:text-text-primary"
+            aria-label="Xing"
+          >
+            <SiXing size={24} />
+          </a>
+          <a
+            href="https://g.dev/krykon-gregor"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-muted transition hover:text-text-primary"
+            aria-label="Google Developer"
+          >
+            <SiGoogle size={24} />
           </a>
           <a
             href="https://discord.com/users/tannjev922"

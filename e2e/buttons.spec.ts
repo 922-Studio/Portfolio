@@ -143,6 +143,18 @@ test.describe('Contact Section', () => {
     await expect(link).toHaveAttribute('target', '_blank');
   });
 
+  test('Xing link points to correct URL', async ({page}) => {
+    const link = page.locator('#contact a[aria-label="Xing"]');
+    await expect(link).toHaveAttribute('href', 'https://www.xing.com/profile/Gregor_Krykon');
+    await expect(link).toHaveAttribute('target', '_blank');
+  });
+
+  test('Google Developer link points to correct URL', async ({page}) => {
+    const link = page.locator('#contact a[aria-label="Google Developer"]');
+    await expect(link).toHaveAttribute('href', 'https://g.dev/krykon-gregor');
+    await expect(link).toHaveAttribute('target', '_blank');
+  });
+
   test('WhatsApp link points to correct URL', async ({page}) => {
     const link = page.locator('#contact a[aria-label="WhatsApp"]');
     await expect(link).toHaveAttribute('href', 'https://wa.me/4915737997074');
