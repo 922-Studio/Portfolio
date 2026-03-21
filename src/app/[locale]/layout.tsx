@@ -127,7 +127,7 @@ export default async function LocaleLayout({children, params}: Props) {
           <NextIntlClientProvider>
             <Background />
             <Header />
-            <main className="relative z-10 pb-20">
+            <main className="relative z-10 pt-16 pb-20">
               {children}
             </main>
             <Footer />

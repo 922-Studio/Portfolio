@@ -17,6 +17,43 @@ test.describe('Header', () => {
     await expect(link).toHaveAttribute('target', '_blank');
   });
 
+  test('GK logo scrolls to top on homepage', async ({page}) => {
+    // Scroll down then back up slightly to reveal the header
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => window.scrollTo(0, 400));
+    await page.waitForTimeout(500);
+
+    const logo = page.locator('header a.text-gradient');
+    await logo.click();
+    await page.waitForTimeout(500);
+
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBeLessThan(50);
+  });
+
+  test('GK logo navigates to homepage from impressum', async ({page}) => {
+    await page.goto('/en/impressum');
+    const logo = page.locator('header a.text-gradient');
+    await expect(logo).toHaveAttribute('href', '/en');
+    await logo.click();
+    await page.waitForURL('**/en');
+  });
+
+  test('Header hides on scroll down and shows on scroll up', async ({page}) => {
+    const header = page.locator('header');
+
+    // Scroll down
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await page.waitForTimeout(500);
+    await expect(header).toHaveClass(/-translate-y-full/);
+
+    // Scroll back up
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await page.waitForTimeout(500);
+    await expect(header).toHaveClass(/translate-y-0/);
+  });
+
   test('Language switcher has EN and DE options', async ({page}) => {
     const en = page.locator('header').getByText('EN', {exact: true});
     const de = page.locator('header').getByText('DE', {exact: true});
@@ -53,6 +90,13 @@ test.describe('BottomNav', () => {
     }
   });
 
+  test('BottomNav is horizontally scrollable on small viewports', async ({page}) => {
+    await page.setViewportSize({width: 320, height: 568});
+    await page.goto('/en');
+    const navContainer = page.locator('nav > div');
+    const overflowX = await navContainer.evaluate((el) => getComputedStyle(el).overflowX);
+    expect(overflowX).toBe('auto');
+  });
 });
 
 test.describe('Hero Section', () => {
