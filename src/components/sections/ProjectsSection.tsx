@@ -106,6 +106,25 @@ export function ProjectsSection() {
     [currentIndex, totalSlides],
   );
 
+  // Pause when tab is hidden to prevent index drifting while transitions can't fire
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setPaused(true);
+      } else {
+        // Normalize index back to middle set before resuming
+        setTransitionEnabled(false);
+        setCurrentIndex((prev) => {
+          const normalized = ((prev - totalSlides) % totalSlides + totalSlides) % totalSlides + totalSlides;
+          return normalized;
+        });
+        setPaused(false);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [totalSlides]);
+
   // Auto-advance
   useEffect(() => {
     if (paused) return;
