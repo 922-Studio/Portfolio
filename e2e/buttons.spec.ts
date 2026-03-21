@@ -41,6 +41,7 @@ test.describe('BottomNav', () => {
       {text: 'Home', href: '#'},
       {text: 'About', href: '#about'},
       {text: 'Stack', href: '#stack'},
+      {text: 'Certs', href: '#certifications'},
       {text: 'Projects', href: '#projects'},
       {text: 'Testimonials', href: '#testimonials'},
       {text: 'Contact', href: '#contact'},

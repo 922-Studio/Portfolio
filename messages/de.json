@@ -3,6 +3,7 @@
     "home": "Start",
     "about": "Über mich",
     "stack": "Technik",
+    "certifications": "Zert.",
     "projects": "Projekte",
     "testimonials": "Referenzen",
     "contact": "Kontakt"
@@ -29,6 +30,17 @@
       "development": "Entwicklung",
       "infrastructure": "Infrastruktur",
       "hosting": "Hosting & Tools"
+    }
+  },
+  "certifications": {
+    "heading": "Zertifikate",
+    "gen_ai_beyond_chatbot": {
+      "name": "Gen AI: Beyond the Chatbot",
+      "issuer": "Google Cloud",
+      "date": "Mär. 2026"
+    },
+    "series": {
+      "generative_ai_for_leaders": "Teil der Spezialisierung Generative AI for Leaders"
     }
   },
   "projects": {
