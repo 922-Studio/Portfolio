@@ -10,7 +10,7 @@ services:
     networks:
       - proxy
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/"]
+      test: ["CMD-SHELL", "wget -qO /dev/null http://localhost:3000/ 2>&1"]
       interval: 5s
       timeout: 3s
       retries: 5
