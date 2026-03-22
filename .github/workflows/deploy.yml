@@ -39,8 +39,6 @@ jobs:
       allure_server_url: 'http://home-lab:5050'
       allure_project_id: 'portfolio-unit'
       allure_launch_name: 'Portfolio Unit Tests'
-      coverage_fail_under: 70
-      pushgateway_url: 'http://home-lab:9091'
     secrets:
       DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}

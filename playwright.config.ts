@@ -11,19 +11,8 @@ export default defineConfig({
   workers: isCI ? 1 : undefined,
   reporter: isCI
     ? [
-        ['html'],
+        ['list'],
         ['allure-playwright', {outputFolder: 'allure-results'}],
-        ['monocart-reporter', {
-          name: 'Portfolio E2E Coverage',
-          outputFile: './coverage/e2e/index.html',
-          coverage: {
-            outputDir: './reports',
-            reports: [
-              ['cobertura'],
-              ['console-details'],
-            ],
-          },
-        }],
       ]
     : 'html',
   use: {

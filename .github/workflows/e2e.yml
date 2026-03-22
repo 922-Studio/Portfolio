@@ -31,7 +31,6 @@ jobs:
       allure_project_id: 'portfolio'
       allure_server_url: 'http://localhost:5050'
       allure_launch_name: ${{ inputs.allure_launch_name || 'Portfolio E2E Tests' }}
-      pushgateway_url: 'http://home-lab:9091'
     secrets:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
