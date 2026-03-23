@@ -35,7 +35,7 @@ test.describe('Certifications Section', () => {
 
   test('certificate card displays series info', async ({page}) => {
     const section = page.locator('#certifications');
-    await expect(section.getByText(/Generative AI for Leaders/)).toBeVisible();
+    await expect(section.getByText(/Generative AI for Leaders/).first()).toBeVisible();
   });
 });
 
@@ -51,7 +51,7 @@ test.describe('Certifications Section (DE)', () => {
 
   test('certificate card is visible with German date', async ({page}) => {
     const section = page.locator('#certifications');
-    await expect(section.getByText('Mär. 2026')).toBeVisible();
+    await expect(section.getByText('Mär. 2026').first()).toBeVisible();
   });
 });
 
