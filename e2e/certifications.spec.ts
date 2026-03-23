@@ -15,17 +15,22 @@ test.describe('Certifications Section', () => {
     await expect(heading).toHaveText('Certifications');
   });
 
-  test('certificate card links to Coursera verification', async ({page}) => {
-    const link = page.locator('#certifications a[href="https://coursera.org/verify/F8W0F3S0PE3P"]');
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('target', '_blank');
+  test('certificate cards link to Coursera verification', async ({page}) => {
+    const foundationalLink = page.locator('#certifications a[href="https://coursera.org/verify/ACFDEDI153XB"]');
+    await expect(foundationalLink).toBeVisible();
+    await expect(foundationalLink).toHaveAttribute('target', '_blank');
+
+    const chatbotLink = page.locator('#certifications a[href="https://coursera.org/verify/F8W0F3S0PE3P"]');
+    await expect(chatbotLink).toBeVisible();
+    await expect(chatbotLink).toHaveAttribute('target', '_blank');
   });
 
-  test('certificate card displays course name, issuer and date', async ({page}) => {
+  test('certificate cards display course names, issuer and date', async ({page}) => {
     const section = page.locator('#certifications');
+    await expect(section.getByText('Gen AI: Unlock Foundational Concepts')).toBeVisible();
     await expect(section.getByText('Gen AI: Beyond the Chatbot')).toBeVisible();
-    await expect(section.getByText('Google Cloud')).toBeVisible();
-    await expect(section.getByText('Mar 2026')).toBeVisible();
+    await expect(section.getByText('Google Cloud').first()).toBeVisible();
+    await expect(section.getByText('Mar 2026').first()).toBeVisible();
   });
 
   test('certificate card displays series info', async ({page}) => {

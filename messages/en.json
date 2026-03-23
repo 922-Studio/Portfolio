@@ -34,6 +34,11 @@
   },
   "certifications": {
     "heading": "Certifications",
+    "gen_ai_unlock_foundational_concepts": {
+      "name": "Gen AI: Unlock Foundational Concepts",
+      "issuer": "Google Cloud",
+      "date": "Mar 2026"
+    },
     "gen_ai_beyond_chatbot": {
       "name": "Gen AI: Beyond the Chatbot",
       "issuer": "Google Cloud",

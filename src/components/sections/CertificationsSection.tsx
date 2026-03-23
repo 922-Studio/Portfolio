@@ -5,6 +5,15 @@ import {SiCoursera, SiGooglecloud} from 'react-icons/si';
 
 const CERTIFICATIONS = [
   {
+    key: 'gen_ai_unlock_foundational_concepts',
+    issuerIcon: SiGooglecloud,
+    issuerColor: '#4285F4',
+    platformIcon: SiCoursera,
+    platformColor: '#0056D2',
+    verifyUrl: 'https://coursera.org/verify/ACFDEDI153XB',
+    series: 'generative_ai_for_leaders',
+  },
+  {
     key: 'gen_ai_beyond_chatbot',
     issuerIcon: SiGooglecloud,
     issuerColor: '#4285F4',
