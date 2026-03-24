@@ -20,6 +20,13 @@ services:
       - "traefik.http.routers.portfolio.rule=Host(`gregor.922-studio.com`)"
       - "traefik.http.routers.portfolio.entrypoints=web"
       - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+      - "traefik.http.routers.portfolio-root.rule=Host(`922-studio.com`)"
+      - "traefik.http.routers.portfolio-root.entrypoints=web"
+      - "traefik.http.routers.portfolio-root.middlewares=redirect-to-gregor"
+      - "traefik.http.routers.portfolio-root.service=portfolio"
+      - "traefik.http.middlewares.redirect-to-gregor.redirectregex.regex=^https?://922-studio\\.com(.*)"
+      - "traefik.http.middlewares.redirect-to-gregor.redirectregex.replacement=https://gregor.922-studio.com$${1}"
+      - "traefik.http.middlewares.redirect-to-gregor.redirectregex.permanent=true"
 
 networks:
   proxy:
