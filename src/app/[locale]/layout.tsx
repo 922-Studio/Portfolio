@@ -47,6 +47,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
       languages: {
         en: 'https://gregor.922-studio.com/en',
         de: 'https://gregor.922-studio.com/de',
+        'x-default': 'https://gregor.922-studio.com/en',
       },
     },
     openGraph: {
