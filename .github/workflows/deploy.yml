@@ -25,6 +25,25 @@ jobs:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
+  build:
+    name: Build Docker image
+    needs: version
+    uses: 922-Studio/workflows/.github/workflows/docker-build.yml@main
+    with:
+      registry_url: registry.922-studio.com
+      image_name: portfolio
+      tag: prod-v${{ needs.version.outputs.new_version }}
+      build_args: |
+        NEXT_PUBLIC_GA_MEASUREMENT_ID=G-1GSBD62ZVM
+      push: false
+      repository_path: '/home/lab/portfolio'
+      pull_code: true
+    secrets:
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  # ────────────────────────────────────────────────────────────────────────────
   tests:
     name: Run unit tests (Vitest + Allure)
     needs: version
@@ -44,6 +63,29 @@ jobs:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
+  push-prod:
+    name: Push prod image to registry
+    needs: [version, build, tests]
+    environment:
+      name: production
+      url: https://gregor.922-studio.com
+    uses: 922-Studio/workflows/.github/workflows/docker-build.yml@main
+    with:
+      registry_url: registry.922-studio.com
+      image_name: portfolio
+      tag: prod-v${{ needs.version.outputs.new_version }}
+      mutable_tag: prod
+      build_args: |
+        NEXT_PUBLIC_GA_MEASUREMENT_ID=G-1GSBD62ZVM
+      push: true
+      repository_path: '/home/lab/portfolio'
+      pull_code: false
+    secrets:
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+
+  # ────────────────────────────────────────────────────────────────────────────
   kick-off-e2e:
     name: Kick off E2E tests
     needs: tests
@@ -58,24 +100,12 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
-  deploy:
-    name: Deploy to server
-    needs: tests
-    uses: 922-Studio/workflows/.github/workflows/deploy-docker.yml@main
-    with:
-      repository_path: '/home/lab/portfolio'
-      boot_script: 'deploy.sh'
-      service_name: 'portfolio'
-    secrets:
-      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
-
-  # ────────────────────────────────────────────────────────────────────────────
   create-issue:
-    needs: [tests, deploy]
-    if: failure()
+    needs: [tests, push-prod]
+    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure') }}
     uses: 922-Studio/workflows/.github/workflows/create-issue.yml@main
     with:
-      job_name: 'tests / deploy'
+      job_name: 'build / tests / push'
       workflow_status: 'failure'
       repository_name: '${{ github.repository }}'
       branch_name: '${{ github.ref_name }}'
@@ -89,8 +119,8 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-success:
     name: Discord notification (success)
-    needs: [version, deploy]
-    if: success()
+    needs: [version, push-prod]
+    if: ${{ !cancelled() && needs.push-prod.result == 'success' }}
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
       enable_email: false
@@ -107,8 +137,8 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-failure:
     name: Discord notification (failure)
-    needs: [tests, deploy, create-issue]
-    if: failure()
+    needs: [tests, push-prod, create-issue]
+    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure') }}
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
       enable_email: false
