@@ -82,15 +82,19 @@ jobs:
   kick-off-e2e:
     name: Kick off E2E tests
     needs: tests
-    runs-on: polaris
+    runs-on: ubuntu-latest
     steps:
       - name: Trigger E2E workflow
-        run: |
-          gh workflow run e2e.yml \
-            --repo ${{ github.repository }} \
-            --ref ${{ github.ref_name }}
-        env:
-          GH_TOKEN: ${{ secrets.PAT_GITHUB }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PAT_GITHUB }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'e2e.yml',
+              ref: context.ref,
+            });
 
   # ────────────────────────────────────────────────────────────────────────────
   create-issue:
