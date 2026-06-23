@@ -96,7 +96,7 @@ cancel-previous → version → build (parallel: tests) → push-prod → kick-o
 | `build` | Builds Docker image on runner (no push) |
 | `tests` | Runs Vitest with coverage, reports to Allure server |
 | `push-prod` | Pushes image to private registry with `prod` and `prod-vX.Y.Z` tags |
-| `kick-off-e2e` | Triggers the `e2e.yml` workflow on the self-hosted runner |
+| `kick-off-e2e` | Triggers the `e2e.yml` workflow on the polaris runner |
 | `notify-success` | Discord notification on success |
 | `notify-failure` | Discord notification + GitHub issue on failure |
 
