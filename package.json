@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "playwright test",
     "test:install": "playwright install --with-deps chromium",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:unit:ci": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
