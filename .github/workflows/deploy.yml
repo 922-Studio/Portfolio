@@ -79,6 +79,24 @@ jobs:
       PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
 
   # ────────────────────────────────────────────────────────────────────────────
+  deploy-prod:
+    name: Deploy prod to antares
+    needs: [push-prod]
+    if: github.ref_name == 'main' || github.event_name == 'workflow_dispatch'
+    uses: 922-Studio/workflows/.github/workflows/deploy-docker.yml@main
+    with:
+      docker_compose_file: docker-compose.deploy.yaml
+      service_name: portfolio
+      image: registry.922-studio.com/portfolio:prod
+      deploy_target: antares
+      environment: prod
+      env_file_source: /home/lab/portfolio/.env
+    secrets:
+      PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+
+  # ────────────────────────────────────────────────────────────────────────────
   kick-off-e2e:
     name: Kick off E2E tests
     needs: tests
@@ -98,8 +116,8 @@ jobs:
 
   # ────────────────────────────────────────────────────────────────────────────
   create-issue:
-    needs: [tests, push-prod]
-    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure') }}
+    needs: [tests, push-prod, deploy-prod]
+    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure' || needs.deploy-prod.result == 'failure') }}
     uses: 922-Studio/workflows/.github/workflows/create-issue.yml@main
     with:
       job_name: 'build / tests / push'
@@ -116,8 +134,8 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-success:
     name: Discord notification (success)
-    needs: [version, push-prod]
-    if: ${{ !cancelled() && needs.push-prod.result == 'success' }}
+    needs: [version, deploy-prod]
+    if: ${{ !cancelled() && needs.deploy-prod.result == 'success' }}
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
       enable_email: false
@@ -134,8 +152,8 @@ jobs:
   # ────────────────────────────────────────────────────────────────────────────
   notify-failure:
     name: Discord notification (failure)
-    needs: [tests, push-prod, create-issue]
-    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure') }}
+    needs: [tests, push-prod, deploy-prod, create-issue]
+    if: ${{ !cancelled() && (needs.tests.result == 'failure' || needs.push-prod.result == 'failure' || needs.deploy-prod.result == 'failure') }}
     uses: 922-Studio/workflows/.github/workflows/send-notification.yml@main
     with:
       enable_email: false
