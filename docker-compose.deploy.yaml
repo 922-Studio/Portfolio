@@ -12,8 +12,6 @@ services:
       retries: 5
       start_period: 15s
     labels:
-      # Watchtower: auto-update this container
-      - "com.centurylinklabs.watchtower.enable=true"
       # Traefik routing
       - "traefik.enable=true"
       - "traefik.http.routers.portfolio.rule=Host(`gregor.922-studio.com`)"
