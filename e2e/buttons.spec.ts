@@ -155,6 +155,8 @@ test.describe('Projects Section', () => {
       'https://krimispiele.com',
       'https://samhain-verlag.de',
       'https://krimidinnerverzeichnis.de',
+      'https://play.google.com/store/apps/details?id=de.samhainverlag.krimidinner',
+      'https://nodewar.922-studio.com',
     ];
 
     for (const url of expectedUrls) {

@@ -30,8 +30,8 @@ type Props = {
 };
 
 const descriptions: Record<string, string> = {
-  en: 'I automate the tedious, build the essential — and ship things that keep running. Full-stack developer based in Bavaria, Germany.',
-  de: 'Ich automatisiere das Mühsame, baue das Wesentliche — und liefere Dinge, die laufen. Full-Stack-Entwickler aus Bayern.',
+  en: 'Software developer from Bavaria, specialised in automating development processes, rollout, infrastructure and harness engineering for AI-assisted development.',
+  de: 'Software-Entwickler aus Bayern, spezialisiert auf die Automatisierung der Entwicklungsprozesse, Rollout, Infrastruktur und Harness Engineering für KI-gestützte Entwicklung.',
 };
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
@@ -40,18 +40,18 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const url = `https://gregor.922-studio.com/${locale}`;
 
   return {
-    title: 'Gregor Krykon — Automation Engineer & Full-Stack Developer',
+    title: 'Gregor Krykon - Junior Software Developer, DevOps & AI Engineering',
     description,
     alternates: {
       canonical: url,
       languages: {
         en: 'https://gregor.922-studio.com/en',
         de: 'https://gregor.922-studio.com/de',
-        'x-default': 'https://gregor.922-studio.com/en',
+        'x-default': 'https://gregor.922-studio.com/de',
       },
     },
     openGraph: {
-      title: 'Gregor Krykon — Automation Engineer & Full-Stack Developer',
+      title: 'Gregor Krykon - Junior Software Developer, DevOps & AI Engineering',
       description,
       url,
       siteName: 'Gregor Krykon',
@@ -82,7 +82,7 @@ export default async function LocaleLayout({children, params}: Props) {
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Gregor Krykon',
-      jobTitle: 'Automation Engineer & Full-Stack Developer',
+      jobTitle: 'Junior Software Developer, DevOps & AI Engineering',
       url: 'https://gregor.922-studio.com',
       email: 'gregor.krykon@922-studio.com',
       sameAs: [

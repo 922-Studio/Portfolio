@@ -13,7 +13,7 @@ export function HeroSection() {
         <span className="text-gradient">{t('name')}</span>
       </h1>
       <p className="mt-4 text-lg text-text-secondary sm:text-xl">{t('title')}</p>
-      <p className="mt-3 max-w-xl text-base text-text-muted sm:text-lg">{t('tagline')}</p>
+      <p className="mt-3 max-w-2xl text-base text-text-muted sm:text-lg">{t('tagline')}</p>
       <div className="mt-8">
         <a
           href={`/cv-${locale}.pdf`}

@@ -10,26 +10,35 @@
   },
   "hero": {
     "name": "Gregor Krykon",
-    "title": "Automation Engineer · Full-Stack Developer",
-    "tagline": "Ich automatisiere das Mühsame, baue das Wesentliche — und liefere Dinge, die laufen.",
+    "title": "Junior Software Developer · DevOps · AI Engineering",
+    "tagline": "Ich automatisiere Entwicklung, Rollout und Infrastruktur und baue meine Projekte mit KI in meinem eigenen Harness.",
     "cta": {
       "cv": "Lebenslauf"
     }
   },
   "about": {
     "heading": "Über mich",
-    "body1": "Ich bin Gregor — ein Entwickler aus Bayern, der mit 15 angefangen hat, Dinge zu bauen, und nie aufgehört hat.",
-    "body2": "Ich habe mit Spieleentwicklung angefangen, mich dann in Web-Shops eingearbeitet und schließlich meinen Weg in die Automatisierung und Full-Stack-Entwicklung gefunden. Heute arbeite ich bei der FELLOWPRO AG im Bereich Software-Entwicklung mit Schwerpunkt CI/CD, Testautomatisierung und DevOps — und betreibe nebenbei eigene Projekte und selbst gehostete Infrastruktur.",
-    "body3": "Mein Ansatz: erst etwas bauen, das funktioniert — dann solide machen. Kein endloses Planen, kein Perfektionismus — nur konsistenter, getesteter, echter Output.",
-    "body4": "Wenn du eine Website, eine App oder ein System brauchst, das dir die manuelle Arbeit abnimmt — lass uns reden.",
+    "body1": "Ich bin Gregor, 21. Ich entwickle seit 6 Jahren Software aus Leidenschaft.",
+    "body2": "Von Spielen über Web-Shops bin ich bei Automatisierung und Entwicklung gelandet. Bei der FELLOWPRO AG arbeite ich an CI/CD, Testautomatisierung und DevOps; privat betreibe ich eigene Projekte auf selbst gehosteter Infrastruktur. Meine Ausbildung schließe ich im Februar 2027 ab.",
+    "body3": "Meine eigenen Projekte baue ich hauptsächlich mit KI: Ich entwerfe Spezifikation, Plan, Prüfkriterien und KI-Agenten und setze dann mit Claude Code die Entwicklung mit meinem eigenen, selbst gebauten Harness um. Bei der FELLOWPRO habe ich eine Reihe Claude-Skills für den Entwickleralltag entwickelt und im Team eingeführt, unter anderem mit einer begleiteten Einführung in Claude Code. Ich bin motiviert, mit KI-gestützter Entwicklung oder auch durch herkömmliche Prozesse das meiste Potential aus der investierten Zeit rauszuholen.",
+    "body4": "Mein Ansatz: Bauen, testen, shippen, optimieren, repeat.",
     "photos_label": "Das bin ich"
   },
   "stack": {
     "heading": "Technik",
     "categories": {
-      "development": "Entwicklung",
-      "infrastructure": "Infrastruktur",
-      "hosting": "Hosting & Tools"
+      "ai": "KI-Entwicklung",
+      "agents": "Weitere Agent-Tools",
+      "daily": "Täglich",
+      "practical": "Praktisch eingesetzt",
+      "familiar": "Kennengelernt"
+    },
+    "levelHints": {
+      "ai": "Damit baue ich meine eigenen Projekte",
+      "agents": "Ausprobiert und im Alltag eingesetzt",
+      "daily": "Im Job und in meinen eigenen Projekten",
+      "practical": "Im Job oder in eigenen Projekten genutzt",
+      "familiar": "Erste Erfahrungen"
     }
   },
   "certifications": {
@@ -50,21 +59,58 @@
   },
   "projects": {
     "heading": "Projekte",
-    "krimispiele": {
-      "title": "krimispiele.com",
-      "desc": "Shopware-Einrichtung, Anpassung und laufende Betreuung für Samhain Verlag."
+    "agent_built": "Mit Claude Code gebaut",
+    "agent_harness": {
+      "title": "Eigene Agent-Harness (orchestrator) für Claude Code",
+      "desc": "Viele meiner Projekte setze ich mit Claude Code um: Ich schreibe die Pläne, Sub-Agenten setzen sie um. Ein Loop-Contract mit Stop-Hook lässt den Agenten weiterarbeiten, bis die Checks grün sind, und ein unabhängiger LLM-Judge prüft das Ergebnis. Ein Schritt gilt bei mir erst als fertig, wenn Tests und Review durch sind. Diesen Harness entwickle ich selbstständig Stück für Stück weiter, um neue Innovationen einzubinden und die besten Methoden zu verwenden."
+    },
+    "nodewar": {
+      "title": "Nodewar – Browser-Idle-Game",
+      "desc": "Ein Idle-Game im Browser: Man baut auf einem Hex-Feld Nodes um einen Kern und verteidigt ihn gegen Wellen. Ich habe es als „Code Factory“ aufgesetzt: Ich pflege die Roadmap, meine Harness erzeugt daraus pro Release einen Loop-Contract, und mehrere Agenten bauen die Features parallel, bis CI und Checks grün sind. Nach jedem Release wertet ein Retro-Agent aus, was an der Factory besser werden kann."
+    },
+    "homelab": {
+      "title": "Mein Homelab",
+      "desc": "Meine Projekte laufen auf drei Servern, die ich selbst eingerichtet habe. Dabei habe ich viel über Docker, Traefik und Monitoring gelernt, oft auch aus Fehlern."
+    },
+    "workflows": {
+      "title": "Wiederverwendbare CI/CD-Workflows",
+      "desc": "Statt in jedem Projekt eine eigene Pipeline zu pflegen, nutzen alle meine Repos Shared Workflows, um pflegeleichter zu sein und neue Projekte leichter aufbauen zu können. Das Repo ist öffentlich auf GitHub."
+    },
+    "home_ecosystem": {
+      "title": "Mein Dashboard",
+      "desc": "Finanzen, Schlafdaten und Serverstatus hatte ich vorher in verschiedenen Tools, jetzt sehe ich alles in einer eigenen App. Daran habe ich gelernt, wie API, Hintergrunddienst und Frontend zusammenspielen."
+    },
+    "kicker": {
+      "title": "Kicker",
+      "desc": "Mit der App tragen wir unsere Kicker-Spiele am Handy ein, die Rangliste ergibt sich aus Elo-Werten. Die erste Version war nach zwei Tagen online, danach habe ich sie Schritt für Schritt erweitert."
+    },
+    "samhain_app": {
+      "title": "Samhain Krimidinner-App",
+      "desc": "Für die Krimidinner-Boxen des Samhain Verlags habe ich eine Begleit-App mit Flutter gebaut, die im Google Play Store verfügbar ist. Die Inhalte kommen aus meinem CDN bei Cloudflare, jeder Krimi wird einmal heruntergeladen und läuft danach auch offline. Die Auflösung bleibt gesperrt, bis man sie mit der EAN der Box freischaltet."
+    },
+    "samhain_platform": {
+      "title": "Samhain Content-Plattform",
+      "desc": "Für jede kleine Textkorrektur in der Samhain-App musste bisher ein neues Release raus. Ich habe die Inhalte deshalb in ein Redaktionssystem umgezogen, aus dem sich App und Website die Daten selbst holen."
     },
     "samhain": {
       "title": "samhain-verlag.de",
-      "desc": "WordPress-Einrichtung und Content-Management für Samhain Verlag."
-    },
-    "krimidinnerverzeichnis": {
-      "title": "krimidinnerverzeichnis.de",
-      "desc": "Datenbankbasierte Vergleichsplattform für Krimi-Spiele im deutschsprachigen Raum. Gebaut mit HTML & JavaScript. Entwickelt für Lympselon – Krimi Events."
+      "desc": "Ich habe die alte WordPress-Seite des Verlags durch eine statische Astro-Seite ersetzt, die dieselben Inhalte wie die App nutzt. Vor jedem Deployment sichert ein Skript den aktuellen Stand und rollt bei Fehlern automatisch zurück."
     },
     "sweatvalley_bingo": {
       "title": "Sweatvalley Bingo",
-      "desc": "Echtzeit-Multiplayer-Bingo fürs Klassenzimmer — Lobby-System, Live-Leaderboard und automatischer Rejoin. Für Leo entwickelt und live gebracht. Infrastruktur, CI/CD und Tests von mir."
+      "desc": "Ein Bingo für den Unterricht, bei dem jeder per Code beitritt und live seine Karte abhakt. Ich habe es mit React und Socket.io gebaut und auf meinem Server online gebracht."
+    },
+    "krimispiele": {
+      "title": "krimispiele.com",
+      "desc": "Hier verkauft der Samhain Verlag seine Krimidinner-Spiele. Ich habe den Shopware-Shop eingerichtet und kümmere mich seitdem um die Pflege."
+    },
+    "krimidinnerverzeichnis": {
+      "title": "krimidinnerverzeichnis.de",
+      "desc": "Wer ein Krimidinner sucht, findet hier Anbieter aus dem deutschsprachigen Raum auf einer Seite. Die Seite habe ich für einen Veranstalter von Krimi-Events gebaut."
+    },
+    "praxis_it": {
+      "title": "Minijob: IT in einer Arztpraxis",
+      "desc": "In einem Minijob mache ich den IT-Support für eine Arztpraxis und baue die praxisinternen Systeme auf. Dazu gehörte der Umzug des alten physischen Windows-Servers als virtuelle Maschine auf einen neuen Proxmox-Host. Die Systeme habe ich dokumentiert und ein Backup-Konzept für die Patientendaten erarbeitet."
     }
   },
   "testimonials": {
@@ -77,7 +123,7 @@
   },
   "contact": {
     "heading": "Kontakt",
-    "text": "Hast du ein Projekt im Kopf oder möchtest einfach Hallo sagen? Schreib mir — ich freue mich von dir zu hören.",
+    "text": "Hast du ein Projekt im Kopf oder möchtest einfach Hallo sagen? Schreib mir - ich freue mich von dir zu hören.",
     "email_label": "Schreib mir eine E-Mail",
     "email": "gregor.krykon@922-studio.com"
   },

@@ -31,7 +31,7 @@ test.describe('About Section', () => {
     await stack.click();
     await page.waitForTimeout(600); // 500ms CSS transition + buffer
 
-    // After rotate(): order changes from [0,1,2] to [2,0,1] — first img src changes
+    // After rotate(): order changes from [0,1,2] to [2,0,1] - first img src changes
     const srcAfter = await firstImg.getAttribute('src');
     expect(srcAfter).not.toBe(srcBefore);
   });
@@ -78,9 +78,9 @@ test.describe('Stack Section', () => {
     await expect(page.locator('#stack h2')).toBeVisible();
   });
 
-  test('renders all three categories', async ({page}) => {
+  test('renders all stack groups', async ({page}) => {
     const categories = page.locator('#stack h3');
-    await expect(categories).toHaveCount(3);
+    await expect(categories).toHaveCount(5);
   });
 
   test('tech items link to external documentation', async ({page}) => {

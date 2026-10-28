@@ -10,26 +10,35 @@
   },
   "hero": {
     "name": "Gregor Krykon",
-    "title": "Automation Engineer · Full-Stack Developer",
-    "tagline": "I automate the tedious, build the essential — and ship things that keep running.",
+    "title": "Junior Software Developer · DevOps · AI Engineering",
+    "tagline": "I automate development, rollout and infrastructure, and build my projects with AI in my own harness.",
     "cta": {
       "cv": "Download CV"
     }
   },
   "about": {
     "heading": "About Me",
-    "body1": "I'm Gregor — a developer based in Bavaria who got hooked on building things at 15 and never stopped.",
-    "body2": "I started with game development, moved into web shops, and eventually found my groove in automation and full-stack development. Today I work at FELLOWPRO AG in software development, specialising in CI/CD, test automation, and DevOps — while running my own projects and self-hosted infrastructure in my spare time.",
-    "body3": "My approach: ship something that works, then make it solid. No endless planning, no perfectionism paralysis — just consistent, tested, real output.",
-    "body4": "If you need a website, an app, or a system that takes the manual work off your plate — let's talk.",
+    "body1": "I'm Gregor, 21. I have been developing software out of passion for 6 years.",
+    "body2": "From games and web shops I ended up in automation and development. At FELLOWPRO AG I work on CI/CD, test automation and DevOps; privately I run my own projects on self-hosted infrastructure. I finish my apprenticeship in February 2027.",
+    "body3": "I build my own projects mainly with AI: I design the spec, the plan, the acceptance criteria and AI agents, and then carry out the development with Claude Code in my own self-built harness. At FELLOWPRO I developed a set of Claude skills for everyday developer work and introduced them in the team, including a guided introduction to Claude Code. I'm motivated to get the most out of the time invested, with AI-assisted development or with conventional processes.",
+    "body4": "My approach: build, test, ship, optimise, repeat.",
     "photos_label": "That's me"
   },
   "stack": {
     "heading": "Tech Stack",
     "categories": {
-      "development": "Development",
-      "infrastructure": "Infrastructure",
-      "hosting": "Hosting & Tools"
+      "ai": "AI development",
+      "agents": "More agent tools",
+      "daily": "Daily",
+      "practical": "Hands-on",
+      "familiar": "Familiar"
+    },
+    "levelHints": {
+      "ai": "How I build my own projects",
+      "agents": "Tried and used in practice",
+      "daily": "At work and in my own projects",
+      "practical": "Used at work or in my own projects",
+      "familiar": "First experience"
     }
   },
   "certifications": {
@@ -50,21 +59,58 @@
   },
   "projects": {
     "heading": "Projects",
-    "krimispiele": {
-      "title": "krimispiele.com",
-      "desc": "Shopware setup, customisation, and ongoing management for Samhain Verlag."
+    "agent_built": "Built with Claude Code",
+    "agent_harness": {
+      "title": "My own agent harness (orchestrator) for Claude Code",
+      "desc": "I build many of my projects with Claude Code: I write the plans, sub-agents implement them. A loop contract with a stop hook keeps the agent working until the checks pass, and an independent LLM judge reviews the result. For me a step only counts as done once tests and review have passed. I keep developing this harness on my own, piece by piece, to bring in new innovations and use the best methods."
+    },
+    "nodewar": {
+      "title": "Nodewar – browser idle game",
+      "desc": "A browser idle game: you build nodes around a core on a hex grid and defend it against waves. I set it up as a “code factory”: I maintain the roadmap, my harness generates a loop contract per release from it, and several agents build the features in parallel until CI and the checks pass. After every release a retro agent looks at what the factory itself could do better."
+    },
+    "homelab": {
+      "title": "My homelab",
+      "desc": "My projects run on three servers that I set up myself. Along the way I learned a lot about Docker, Traefik and monitoring, often from my own mistakes."
+    },
+    "workflows": {
+      "title": "Reusable CI/CD workflows",
+      "desc": "Instead of maintaining a separate pipeline in every project, all my repos use shared workflows, to keep maintenance low and make new projects easier to set up. The repo is public on GitHub."
+    },
+    "home_ecosystem": {
+      "title": "My dashboard",
+      "desc": "I used to keep finances, sleep data and server status in different tools, now I see everything in an app of my own. Building it taught me how an API, a background service and a frontend work together."
+    },
+    "kicker": {
+      "title": "Kicker",
+      "desc": "We use the app to record our foosball games on our phones, and the leaderboard comes from Elo ratings. The first version was online after two days, after that I extended it step by step."
+    },
+    "samhain_app": {
+      "title": "Samhain murder-mystery dinner app",
+      "desc": "For Samhain Verlag's murder-mystery dinner boxes I built a Flutter companion app, available on Google Play. The content comes from my CDN on Cloudflare; each game is downloaded once and then works offline too. The solution stays locked until you unlock it with the box's EAN."
+    },
+    "samhain_platform": {
+      "title": "Samhain content platform",
+      "desc": "Every small text correction in the Samhain app used to need a new release. So I moved the content into a content management system that the app and the website fetch their data from on their own."
     },
     "samhain": {
       "title": "samhain-verlag.de",
-      "desc": "WordPress site setup and content management for Samhain Verlag."
-    },
-    "krimidinnerverzeichnis": {
-      "title": "krimidinnerverzeichnis.de",
-      "desc": "Database-driven comparison platform for crime games across the German-speaking region. Built with HTML & JavaScript. Developed for Lympselon – Krimi Events."
+      "desc": "I replaced the publisher's old WordPress site with a static Astro site that uses the same content as the app. Before every deployment a script backs up the current state and rolls back automatically if something fails."
     },
     "sweatvalley_bingo": {
       "title": "Sweatvalley Bingo",
-      "desc": "Real-time multiplayer bingo for the classroom — lobby system, live leaderboard and automatic rejoin. Developed and shipped for Leo. Infrastructure, CI/CD and tests by me."
+      "desc": "A bingo for the classroom where everyone joins with a code and ticks off their card live. I built it with React and Socket.io and put it online on my server."
+    },
+    "krimispiele": {
+      "title": "krimispiele.com",
+      "desc": "This is where Samhain Verlag sells its murder-mystery dinner games. I set up the Shopware shop and have looked after it ever since."
+    },
+    "krimidinnerverzeichnis": {
+      "title": "krimidinnerverzeichnis.de",
+      "desc": "Anyone looking for a murder-mystery dinner finds providers from the German-speaking region on one page here. I built the site for an organiser of crime events."
+    },
+    "praxis_it": {
+      "title": "Part-time job: IT for a medical practice",
+      "desc": "In a part-time job I do IT support for a medical practice and build up its internal systems. This included moving the old physical Windows server onto a new Proxmox host as a virtual machine. I documented the systems and worked out a backup concept for the patient data."
     }
   },
   "testimonials": {
@@ -77,7 +123,7 @@
   },
   "contact": {
     "heading": "Contact",
-    "text": "Have a project in mind or just want to say hi? Reach out — I'd love to hear from you.",
+    "text": "Have a project in mind or just want to say hi? Reach out - I'd love to hear from you.",
     "email_label": "Send me an email",
     "email": "gregor.krykon@922-studio.com"
   },

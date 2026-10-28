@@ -42,7 +42,7 @@ export function ShareCard() {
 
   return (
     <>
-      {/* Share button — used inline among social icons */}
+      {/* Share button - used inline among social icons */}
       <button
         onClick={() => setOpen(true)}
         className="text-text-muted transition hover:text-text-primary"
@@ -59,7 +59,7 @@ export function ShareCard() {
           onClick={close}
         >
           <div className="relative w-full max-w-[340px]" onClick={(e) => e.stopPropagation()}>
-          {/* Card — fully gradient, wider padding, visible border */}
+          {/* Card - fully gradient, wider padding, visible border */}
           <div
             className="relative w-full rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-8 ring-2 ring-black/20 dark:ring-white/20"
           >
@@ -69,7 +69,7 @@ export function ShareCard() {
                 Gregor Krykon
               </h3>
               <p className="mt-1 text-sm font-medium text-white/80">
-                Automation Engineer · Full-Stack Dev
+                Junior Software Developer · DevOps · AI
               </p>
             </div>
 
@@ -78,7 +78,7 @@ export function ShareCard() {
               &ldquo;{t('tagline')}&rdquo;
             </p>
 
-            {/* QR Code — white card inset */}
+            {/* QR Code - white card inset */}
             <div className="mx-auto mt-6 w-48 h-48 rounded-2xl bg-white p-3 shadow-lg">
               <Image
                 src={qrSrc}
@@ -100,7 +100,7 @@ export function ShareCard() {
               {t('scan_hint')}
             </p>
 
-            {/* Close button at bottom of card — desktop only */}
+            {/* Close button at bottom of card - desktop only */}
             <button
               onClick={close}
               className="hidden sm:flex mx-auto mt-5 items-center justify-center rounded-full bg-white/15 p-2 transition hover:bg-white/25"

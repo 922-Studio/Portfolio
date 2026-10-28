@@ -1,6 +1,7 @@
 'use client';
 
-import {ChevronLeft, ChevronRight} from 'lucide-react';
+import {Bot, ChevronLeft, ChevronRight, Container, Gamepad2, GitMerge, LayoutDashboard, Library, ServerCog, Smartphone, Trophy} from 'lucide-react';
+import type {LucideIcon} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import Image from 'next/image';
 import {useCallback, useEffect, useRef, useState} from 'react';
@@ -17,39 +18,173 @@ const TAG_DOCS: Record<string, string> = {
   'Socket.io': 'https://socket.io/docs/v4/',
   Docker: 'https://docs.docker.com',
   'GitHub Actions': 'https://docs.github.com/en/actions',
+  Traefik: 'https://doc.traefik.io/traefik/',
+  Prometheus: 'https://prometheus.io/docs/',
+  Grafana: 'https://grafana.com/docs/grafana/latest/',
+  Cloudflare: 'https://developers.cloudflare.com',
+  MkDocs: 'https://www.mkdocs.org',
+  PostgreSQL: 'https://www.postgresql.org/docs/',
+  FastAPI: 'https://fastapi.tiangolo.com',
+  Celery: 'https://docs.celeryq.dev',
+  TypeScript: 'https://www.typescriptlang.org/docs/',
+  'Next.js': 'https://nextjs.org/docs',
+  Prisma: 'https://www.prisma.io/docs',
+  Playwright: 'https://playwright.dev/docs/intro',
+  Directus: 'https://directus.io/docs/',
+  Flutter: 'https://docs.flutter.dev',
+  Python: 'https://docs.python.org/3/',
+  Gemini: 'https://ai.google.dev/gemini-api/docs',
+  MCP: 'https://modelcontextprotocol.io',
+  'Claude Code': 'https://code.claude.com/docs/en/overview',
+  Astro: 'https://docs.astro.build',
+  Fastify: 'https://fastify.dev/docs/latest/',
+  Dart: 'https://dart.dev/guides',
+  Proxmox: 'https://pve.proxmox.com/pve-docs/',
+  'Windows Server': 'https://learn.microsoft.com/en-us/windows-server/',
 };
 
-const PROJECTS = [
+type Project = {
+  key: string;
+  tags: string[];
+  image?: string;
+  icon?: LucideIcon;
+  liveUrl?: string;
+  repoUrl?: string;
+  /** Built AI-natively with Claude Code: renders the "Built with Claude Code" badge. */
+  agentBuilt?: boolean;
+};
+
+// Card images live in public/images/projects/. A card without `image` renders its `icon` instead,
+// so enabling a screenshot is a one-field change.
+const PROJECTS: Project[] = [
+  {
+    key: 'agent_harness',
+    icon: Bot,
+    tags: ['Claude Code', 'Python', 'MCP'],
+    agentBuilt: true,
+  },
+  {
+    key: 'nodewar',
+    icon: Gamepad2,
+    image: '/images/projects/nodewar.webp',
+    liveUrl: 'https://nodewar.922-studio.com',
+    tags: ['TypeScript', 'Fastify', 'PostgreSQL', 'Playwright'],
+    agentBuilt: true,
+  },
+  {
+    key: 'homelab',
+    icon: Container,
+    tags: ['Docker', 'Traefik', 'Prometheus', 'Grafana'],
+    agentBuilt: true,
+  },
+  {
+    key: 'workflows',
+    icon: GitMerge,
+    tags: ['GitHub Actions', 'Python', 'Gemini', 'MCP'],
+    repoUrl: 'https://github.com/922-Studio/workflows',
+    agentBuilt: true,
+  },
+  {
+    key: 'home_ecosystem',
+    icon: LayoutDashboard,
+    image: '/images/projects/homeui.webp',
+    tags: ['FastAPI', 'PostgreSQL', 'React', 'TypeScript'],
+    agentBuilt: true,
+  },
+  {
+    key: 'kicker',
+    icon: Trophy,
+    image: '/images/projects/kicker.webp',
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Playwright'],
+    agentBuilt: true,
+  },
+  {
+    key: 'samhain_app',
+    icon: Smartphone,
+    image: '/images/projects/samhain-app.webp',
+    tags: ['Flutter', 'Dart', 'Directus'],
+    liveUrl: 'https://play.google.com/store/apps/details?id=de.samhainverlag.krimidinner',
+    agentBuilt: true,
+  },
+  {
+    key: 'samhain_platform',
+    icon: Library,
+    image: '/images/projects/samhain-content.webp',
+    tags: ['Directus', 'Node.js', 'Cloudflare', 'Flutter'],
+    agentBuilt: true,
+  },
+  {
+    key: 'samhain',
+    image: '/images/projects/samhain-website.webp',
+    tags: ['Astro', 'TypeScript', 'Cloudflare'],
+    liveUrl: 'https://samhain-verlag.de',
+    agentBuilt: true,
+  },
   {
     key: 'sweatvalley_bingo',
     image: '/images/projects/sweatvalley-bingo.png',
-    tags: ['React', 'Node.js', 'Socket.io', 'Docker', 'GitHub Actions'],
+    tags: ['React', 'Node.js', 'Socket.io', 'Docker'],
     liveUrl: 'https://sweatvalley-bingo.922-studio.com',
     repoUrl: 'https://github.com/922-Studio/sweatvalley_bingo',
+    agentBuilt: true,
   },
   {
     key: 'krimispiele',
     image: '/images/projects/krimispiel.png',
-    tags: ['Shopware', 'PHP', 'all-inkl'],
+    tags: ['Shopware', 'PHP'],
     liveUrl: 'https://krimispiele.com',
-  },
-  {
-    key: 'samhain',
-    image: '/images/projects/samhain.png',
-    tags: ['WordPress', 'PHP', 'all-inkl'],
-    liveUrl: 'https://samhain-verlag.de',
   },
   {
     key: 'krimidinnerverzeichnis',
     image: '/images/projects/krimidinnerverzeichnis.png',
-    tags: ['HTML', 'JavaScript', 'all-inkl'],
+    tags: ['HTML', 'JavaScript'],
     liveUrl: 'https://krimidinnerverzeichnis.de',
+  },
+  {
+    key: 'praxis_it',
+    icon: ServerCog,
+    tags: ['Proxmox', 'Windows Server'],
   },
 ];
 
 const CARD_WIDTH_SM = 280; // mobile
 const CARD_WIDTH_LG = 320; // sm+
 const GAP = 24; // gap-6
+
+function CardBody({project, title, desc, agentBuiltLabel}: {project: Project; title: string; desc: string; agentBuiltLabel: string}) {
+  const Icon = project.icon;
+  const inner = (
+    <>
+      <div className="relative aspect-video bg-surface-hover">
+        {project.image ? (
+          <Image src={project.image} alt={title} fill className="object-cover" />
+        ) : (
+          Icon && (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-from/20 to-accent-to/20 text-accent-from">
+              <Icon className="h-14 w-14" aria-hidden="true" />
+            </div>
+          )
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <h3 className="font-heading text-lg font-semibold">{title}</h3>
+        <p className="text-sm text-text-secondary">{desc}</p>
+        {project.agentBuilt && (
+          <p className="mt-auto flex items-center gap-1.5 pt-1 text-xs text-text-muted">
+            <Bot className="h-3.5 w-3.5 text-accent-from" aria-hidden="true" />
+            {agentBuiltLabel}
+          </p>
+        )}
+      </div>
+    </>
+  );
+  if (!project.liveUrl) return <div className="flex flex-1 flex-col">{inner}</div>;
+  return (
+    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex flex-1 flex-col">
+      {inner}
+    </a>
+  );
+}
 
 export function ProjectsSection() {
   const t = useTranslations('projects');
@@ -172,45 +307,34 @@ export function ProjectsSection() {
                 className="flex flex-shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:border-accent-from/40 hover:shadow-md hover:shadow-accent-from/10"
                 style={{width: `${cardWidth}px`}}
               >
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-1 flex-col"
-                >
-                  <div className="relative aspect-video bg-surface-hover">
-                    <Image
-                      src={project.image}
-                      alt={t(`${project.key}.title`)}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col gap-2 p-5">
-                    <h3 className="font-heading text-lg font-semibold">
-                      {t(`${project.key}.title`)}
-                    </h3>
-                    <p className="text-sm text-text-secondary">
-                      {t(`${project.key}.desc`)}
-                    </p>
-                  </div>
-                </a>
+                <CardBody
+                  project={project}
+                  title={t(`${project.key}.title`)}
+                  desc={t(`${project.key}.desc`)}
+                  agentBuiltLabel={t('agent_built')}
+                />
                 {/* Links row */}
                 <div className="flex items-center gap-3 border-t border-border px-5 py-2">
                   <div className="flex flex-1 flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <a
-                        key={tag}
-                        href={TAG_DOCS[tag]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-full bg-accent-from/15 px-2.5 py-0.5 text-xs text-accent-from transition hover:bg-accent-from/30"
-                      >
-                        {tag}
-                      </a>
+                      TAG_DOCS[tag] ? (
+                        <a
+                          key={tag}
+                          href={TAG_DOCS[tag]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-full bg-accent-from/15 px-2.5 py-0.5 text-xs text-accent-from transition hover:bg-accent-from/30"
+                        >
+                          {tag}
+                        </a>
+                      ) : (
+                        <span key={tag} className="rounded-full bg-accent-from/15 px-2.5 py-0.5 text-xs text-accent-from">
+                          {tag}
+                        </span>
+                      )
                     ))}
                   </div>
-                  {'repoUrl' in project && project.repoUrl && (
+                  {project.repoUrl && (
                     <a
                       href={project.repoUrl}
                       target="_blank"

@@ -26,7 +26,7 @@ test.describe('Share Card', () => {
 
       const modal = page.locator('[data-testid="share-modal"]');
       await expect(modal.getByText('Gregor Krykon')).toBeVisible();
-      await expect(modal.getByText('Automation Engineer · Full-Stack Dev')).toBeVisible();
+      await expect(modal.getByText('Junior Software Developer · DevOps · AI')).toBeVisible();
     });
 
     test('modal shows EN tagline', async ({page}) => {
