@@ -8,8 +8,9 @@ export default withNextIntl({
     return [
       {
         source: '/',
-        destination: '/en',
-        permanent: true,
+        destination: '/de',
+        // temporary on purpose: browsers cache permanent redirects for good
+        permanent: false,
       },
     ];
   },
