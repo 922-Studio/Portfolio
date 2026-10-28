@@ -1,6 +1,6 @@
 # Portfolio
 
-Personal portfolio website for Gregor Krykon — Automation Engineer and Full-Stack Developer.
+Personal portfolio website for Gregor Krykon - Junior Software Developer, DevOps and AI Engineering.
 
 **Live**: [gregor.922-studio.com](https://gregor.922-studio.com)
 **Root redirect**: `922-studio.com` permanently redirects to `gregor.922-studio.com`

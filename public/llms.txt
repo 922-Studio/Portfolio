@@ -1,20 +1,34 @@
 # Gregor Krykon
 
-> Automation Engineer & Full-Stack Developer based in Grafing bei München, Bavaria, Germany.
+> Junior Software Developer, DevOps & AI Engineering based in Grafing bei München, Bavaria, Germany.
 
 ## About
 
-Gregor Krykon is a software developer specializing in automation, CI/CD, test automation, and full-stack web development. He works as an apprentice software developer (Fachinformatiker Anwendungsentwicklung) at FELLOWPRO AG and runs freelance web projects under the brand 922 Studio.
+Gregor Krykon, 21, has been developing software out of passion for six years. With the acceleration of AI-assisted development he has specialised in automating development processes, rollout, infrastructure and harness engineering. He is an apprentice software developer (Fachinformatiker Anwendungsentwicklung, finishing February 2027) at FELLOWPRO AG, working on CI/CD, test automation and DevOps; there he also developed a set of Claude skills for everyday developer work and introduced them in the team, including a guided introduction to Claude Code. He builds his own projects mainly with AI: he designs the spec, the plan and the acceptance criteria, Claude Code agents implement, and his self-built harness steers the development. He runs his own projects under the brand 922 Studio. His approach: build, test, ship, optimise, repeat.
 
 ## Skills
 
-Python, Vue.js, Next.js, FastAPI, Docker, Kubernetes, Helm, GitHub Actions, Playwright, Tailwind CSS, Shopware, WordPress
+- AI development: Claude Code, agent harness, loop engineering, context engineering, prompt engineering, MCP
+- More agent tools: Codex, Cursor, Antigravity + CLI, Hermes, OpenClaw, Coder, DeepSeek Harness
+- Daily (at work and in own projects): Python, Pytest, Playwright, GitHub Actions, Git, Docker, Linux
+- Hands-on (used at work or in own projects): Allure, Prometheus, Grafana, FastAPI, PostgreSQL, TypeScript, React, Next.js
+- Familiar (first experience): Kubernetes, Helm, Flutter, Redis, Shopware, WordPress
 
 ## Projects
 
-- krimispiele.com — Shopware e-commerce setup and management
-- samhain-verlag.de — WordPress site management
-- krimidinnerverzeichnis.de — Custom HTML/JS directory for crime dinner events
+- Own agent harness (orchestrator) for Claude Code - he writes the plans, sub-agents implement them; a loop contract with a stop hook keeps the agent working until the checks pass and an independent LLM judge reviews the result; a step counts as done only after tests and review; since March 2026
+- Nodewar - browser idle game (since October 2026) (TypeScript, Fastify, PostgreSQL, Playwright) run as a "code factory": he maintains the roadmap, the harness generates a loop contract per release, several agents build features in parallel until CI and checks pass, and a retro agent improves the factory after each release
+- Homelab - three self-hosted servers set up by himself (Docker, Traefik, Prometheus, Grafana)
+- Reusable CI/CD workflows - shared GitHub Actions workflows used by all his repos, easier to maintain and to start new projects: https://github.com/922-Studio/workflows
+- Personal dashboard (HomeAPI / HomeUI / HomeCollector) - finances, sleep data and server status in one app (FastAPI, PostgreSQL, React, TypeScript)
+- Kicker - foosball app: games recorded on the phone, Elo-based leaderboard; first version online after two days
+- Samhain murder-mystery dinner app - Flutter companion app (since May 2026) for Samhain Verlag's dinner boxes, content from a Directus backend, each game downloaded once and playable offline, solution unlocked with the box's EAN; on Google Play: https://play.google.com/store/apps/details?id=de.samhainverlag.krimidinner
+- Samhain content platform - content moved from the app code into Directus, from which the app and the website fetch their data without new releases
+- samhain-verlag.de - static Astro site replacing the old WordPress site, same content as the app, deploy script with backup and automatic rollback: https://samhain-verlag.de
+- Sweatvalley Bingo - real-time classroom bingo (React, Socket.io)
+- krimispiele.com - Shopware shop for Samhain Verlag, set up and maintained: https://krimispiele.com
+- krimidinnerverzeichnis.de - directory of murder-mystery dinner providers in the German-speaking region: https://krimidinnerverzeichnis.de
+- Part-time job (since 2026): IT support and building up the internal systems of a medical practice, including a physical-to-virtual migration of the Windows server onto Proxmox (August 2026), system documentation and a backup concept for the patient data
 
 ## Contact
 
