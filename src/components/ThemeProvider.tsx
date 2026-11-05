@@ -22,6 +22,7 @@ export function ThemeProvider({children}: {children: React.ReactNode}) {
   useEffect(() => {
     const stored = localStorage.getItem('theme') as Theme | null;
     if (stored === 'light' || stored === 'dark') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate stored theme after mount
       setTheme(stored);
       document.documentElement.classList.toggle('dark', stored === 'dark');
     } else {
