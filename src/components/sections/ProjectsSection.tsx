@@ -157,7 +157,7 @@ function CardBody({project, title, desc, agentBuiltLabel}: {project: Project; ti
     <>
       <div className="relative aspect-video bg-surface-hover">
         {project.image ? (
-          <Image src={project.image} alt={title} fill className="object-cover" />
+          <Image src={project.image} alt={title} fill sizes="(min-width: 640px) 320px, 280px" className="object-cover" />
         ) : (
           Icon && (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent-from/20 to-accent-to/20 text-accent-from">
