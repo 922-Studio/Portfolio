@@ -60,7 +60,7 @@ export function AboutSection() {
               key={photoIdx}
               className={`absolute overflow-hidden rounded-xl border border-border transition-all duration-500 ease-in-out ${POSITIONS[posIdx]}`}
             >
-              <Image src={PHOTOS[photoIdx]} alt="" fill className="object-cover" />
+              <Image src={PHOTOS[photoIdx]} alt="" fill sizes="(min-width: 1024px) 288px, 256px" className="object-cover" />
             </div>
           ))}
           <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-text-muted whitespace-nowrap">

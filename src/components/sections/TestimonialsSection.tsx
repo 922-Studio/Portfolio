@@ -33,6 +33,7 @@ export function TestimonialsSection() {
                   src={item.image}
                   alt={t(`${item.key}.name`)}
                   fill
+                  sizes="48px"
                   className="object-cover"
                 />
               </div>
